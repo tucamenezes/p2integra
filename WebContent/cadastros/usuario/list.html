@@ -1,0 +1,60 @@
+<html ng-app="p2app"> 
+ 
+<div class="container">
+   <section class="content-header">
+      <h1>Lista de usuários </h1>
+   </section>
+   
+   <!-- Main content --> 
+    <section class="content">
+      <div class="container">
+        <div class="col-md-6">
+          
+         
+          <br/>
+        </div>
+      <br/>
+      </div>
+      <div class="container" ng-init="listarUsuarios(status);" ng-controller="usuarioController"> 
+       
+               <div class="container">
+                   <label> Filtro : <input type="text" ng-model="filtro"> </label> 
+                   <input type="checkbox" id="mostrarCancelados" ng-model="status" ng-change="listarUsuarios(status);" ng-true-value="'I'" ng-false-value="'A'">
+                   <label for="mostrar">Usuários Inativos</label>
+                   <br/>
+               </div>
+               
+               <table class="table table-striped table-hover">
+                 <th>Id</th>
+                 <th>Nome</th>
+                 <th>Conta</th>
+                 <th>Username</th>
+                 <th>Perfil</th>
+                 <th>Ativo</th>
+                 <tr ng-repeat="usuario in data | filter:filtro"	ng-click="selecionaUsuario(usuario)">
+       
+                    <td>{{usuario.id}}</td>
+                    <td>{{usuario.nome}}</td> 
+                    <td>{{usuario.conta.nome}}</td> 
+                    <td>{{usuario.username}}</td>
+                    <td>{{usuario.perfil}}</td>
+                   
+               
+                    <td><input id="checkBox" type="checkbox" ng-disabled="true" ng-model="usuario.status" ng-true-value="'A'" ng-false-value="'I'"></td>
+                    
+                 </tr>
+               </table>
+               
+               <div align="left" >
+               <a class="btn btn-success" href="#usuario/cadastro">Novo</a>
+               <a class="btn btn-success" ng-click="editarUsuario(usuario.id);">Editar</a>
+               <a class="btn btn-success" ng-click="cancelarUsuario(usuario.id);">Cancelar</a>
+            </div>  
+
+           </div>
+           
+
+    </section>
+ </div>
+ 
+ </html>

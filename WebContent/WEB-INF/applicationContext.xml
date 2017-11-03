@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx = "http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+	http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
+	default-lazy-init="true">
+
+	<context:annotation-config />
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
+	 
+	 
+
+	<context:component-scan base-package="br.com.p2.dao" />
+	<context:component-scan base-package="br.com.p2.controller" />
+
+
+
+	<!-- Data Source -->
+	<bean id="springDataSource" name="springDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/jdbc/datasouce</value> 
+		</property>
+	</bean>
+
+	
+	
+	<bean id="flyway" class="org.flywaydb.core.Flyway" init-method="migrate" lazy-init="false"> 
+    	<property name="dataSource" ref="springDataSource"/> 
+    	
+    	<property name="baselineOnMigrate" value="true"/>  
+    	<property name="table" value="version"/> 
+    	<property name="sqlMigrationPrefix" value="v"/> 
+    	<property name="sqlMigrationSeparator" value="_"/>
+    	<property name="encoding" value="ISO-8859-1"/> 
+    	<property name="validateOnMigrate" value="true"/>
+	</bean>
+	
+	
+	 <bean id="transactionManager" name="transactionManager"   
+         class="org.springframework.jdbc.datasource.DataSourceTransactionManager" lazy-init="false">
+         <property name="dataSource" ref="springDataSource"/>
+     </bean>  
+     
+     
+     <bean id="appController" name="appController" class="br.com.p2.controller.AppController">
+       		<constructor-arg value="br.com.p2.model.App"/>
+     </bean>
+     
+      <bean id="contaController" name="contaController" class="br.com.p2.controller.ContaController">
+       		<constructor-arg value="br.com.p2.model.Contas"/>
+     </bean>
+     
+     <bean id="contaAppController" name="contaAppController" class="br.com.p2.controller.ContaAppController">
+       		<constructor-arg value="br.com.p2.model.ContasApps"/>
+     </bean>
+     
+     <bean id="empresaController" name="empresaController" class="br.com.p2.controller.EmpresaController">
+       		<constructor-arg value="br.com.p2.model.Empresas"/>
+     </bean>
+     
+     
+      <bean id="estadosController" name="estadosController" class="br.com.p2.controller.EstadosController">
+       		<constructor-arg value="br.com.p2.model.Estados"/>
+     </bean>
+     
+      <bean id="cidadesController" name="cidadesController" class="br.com.p2.controller.CidadesController">
+       		<constructor-arg value="br.com.p2.model.Cidades"/>
+     </bean>
+     
+      <bean id="usuarioController" name="usuarioController" class="br.com.p2.controller.UsuarioController">
+       		<constructor-arg value="br.com.p2.model.Usuarios"/>
+     </bean>
+     
+      <bean id="vendedorController" name="vendedorController" class="br.com.p2.controller.VendedorController">
+       		<constructor-arg value="br.com.p2.model.veiculos.Vendedor"/>
+     </bean>
+     
+      <bean id="modeloController" name="modeloController" class="br.com.p2.controller.ModeloController">
+       		<constructor-arg value="br.com.p2.model.veiculos.Modelo"/>
+     </bean>
+      
+     <!-- Operacoes Apps -->
+     
+      <!-- Gestao de Avaliacao -->
+     
+	     <bean id="avaliacaoController" name="avaliacaoController" class="br.com.p2.controller.AvaliacaoController">
+	       		<constructor-arg value="br.com.p2.model.avaliacao.Avaliacao"/>
+	     </bean>
+	     
+	     <bean id="avaliacaoImagemController" name="avaliacaoImagemController" class="br.com.p2.controller.AvaliacaoImagemController">
+	       		<constructor-arg value="br.com.p2.model.avaliacao.AvaliacaoImagens"/>
+	     </bean>
+	     
+	  <!-- Gestao de Orcamentos -->
+     
+	     <bean id="orcamentoController" name="orcamentoController" class="br.com.p2.controller.OrcamentoController">
+	       		<constructor-arg value="br.com.p2.model.orcamento.Orcamento"/>
+	     </bean>
+	     
+	     <bean id="gestorController" name="gestorController" class="br.com.p2.controller.GestorController">
+	       		<constructor-arg value="br.com.p2.model.orcamento.Gestor"/>
+	     </bean>   
+      
+      
+      
+     
+      
+</beans>
+

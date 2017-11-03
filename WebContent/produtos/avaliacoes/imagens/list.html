@@ -1,0 +1,69 @@
+<html ng-app="p2app">
+
+<head>
+ 
+</head> 
+  
+<div class="container">
+   <section class="content-header">
+      <h1>Imagens cadastradas para avaliação </h1>
+   </section>
+   
+   <!-- Main content --> 
+    <section class="content">
+      
+      <div class="container" ng-init="listarAvaliacoesImagens();" ng-controller="avaliacaoController">
+		       <div class="container">
+		        
+		          <br/><br/>
+		          <label for="texto" class="col-sm-2 control-label">Avaliação : {{avaliacao.id}}</label>
+		          <label for="texto" class="col-sm-6 control-label">Cliente   : {{avaliacao.cliente.nome}}</label>
+		        </div>
+		        <div class="container">
+		          <label for="texto" class="col-sm-2 control-label">Placa     : {{avaliacao.placa}}</label>
+		          <label for="texto" class="col-sm-6 control-label">Veiculo   : {{avaliacao.modelo.descricao}}</label>
+		        </div>
+		       <div class="container">   
+		          <label for="texto" class="col-sm-4 control-label">Chassi    : {{avaliacao.chassi}}</label>
+
+		      </div>
+
+               <table class="table table-striped table-hover">
+                 <th>Id</th>
+                 <th>Descrição</th>
+                 <th>Imagem</th>
+                 
+                 <tr ng-repeat="avaliacaoImagem in dataImagens | filter:filtro"	ng-click="selecionaAvaliacaoImagem(avaliacaoImagem)">
+                    <td>{{avaliacaoImagem.id}}</td>
+                    <td>{{avaliacaoImagem.descricao}}</td> 
+                    <td><div class="hovergallery"><img alt="foto" id="imagemreg" src="{{avaliacaoImagem.imagem}}" style="width: 59px; height: 59px;" border: "0"></div></td> 
+                 
+  
+                 
+                 </tr>
+               </table>
+               
+               <div class="container">
+		         <div class="col-md-3">
+		             <img alt="Nova imagem" id="imagemCliente" src="" style="width: 118px; height: 140px;" border: "0">
+		             <input type="file" id="file" onchange="javascript:visualisarImagem();">
+		               
+                     <input type="text" required="false" ng-model="descricao" class="form-control" id="imgDesc" placeholder="Descrição da Imagem">
+                    
+		            
+		         </div>
+		       </div>
+               <br><br>
+               <div align="left" >
+               <button class="btn btn-success" type="submit" ng-click="salvarImagem();">Salvar</button>
+               <button  class="btn btn-default" type="submit" ng-click="excluirAvaliacaoImagem(avaliacaoImagem.id);">Excluir</button>
+               <button type="submit" ng-click="" class="btn btn-default">Cancelar</button>
+            </div>  
+
+           </div>
+           
+
+    </section>
+ </div>
+ 
+ </html>

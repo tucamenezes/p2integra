@@ -1,0 +1,153 @@
+<html>
+
+  <script type="text/javascript" src="resources/js/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="resources/js/jquery.mask.js"></script>
+    <script type="text/javascript" src="resources/js/jquery.mask.min.js"></script>
+    
+<div class="container">
+   <section class="content-header">
+      <h1>Nova Avaliação </h1>
+   </section>
+   
+   <!-- Main content -->
+    <section class="content">
+      <div class="container" ng-init="carregarEmpresas();carregarModelos();carregarVendedores();">
+      
+      
+         <form class="form-horizontal" ng-submit="salvarAvaliacao();">
+                 
+                  </br>
+                  
+                  <div class="form-group"> 
+                       <div class="row">
+                           <label for="cpflbl" class="col-sm-2 control-label">Cpf do Cliente</label>
+                           <div class="col-sm-3">
+                               <input type="text" ng-disabled="edicao" required="true" ng-model="cpf" class="form-control" id="cpf" placeholder="Cpf do Cliente">
+                               <button type="button" ng-disabled="edicao" ng-click="validaCliente(cpf)" class="btn btn-default">Validar</button>
+                               <br>
+                               <label for="nomeCliente">{{nomeCliente}}</label>
+                           </div>
+                       </div>    
+                  </div>
+                  
+                   </br>
+               <div class="container" ng-show="validou">
+                  <!-- Combo das Modelos -->
+                  <div class="form-group">
+                       <div class="row">
+                           <label  class="col-sm-2 control-label">Modelo</label>  
+	                       <div class="col-md-3">
+		                      <select id="selectModelo" class="form-control" ng-model="avaliacao.modelo" ng-options="modelo.descricao for modelo in dataModelos track by modelo.descricao">
+                              </select>
+                           </div>
+	                   </div>
+                     </div>
+                 <!-- Placa -->
+                 <div class="form-group">
+                     <div class="row">
+                          <label for="placa1" class="col-sm-2 control-label">Placa</label>
+                          <div class="col-md-2">
+                             <input type="text"  ng-model="avaliacao.placa" class="form-control" id="placa" placeholder="Placa">
+                          </div>
+                    </div>
+                  </div>
+                  <!-- Combo das Chassi -->
+                   <div class="form-group"> 
+                       <div class="row">
+                           <label for="chassi" class="col-sm-2 control-label">Chassi</label>
+                           <div class="col-sm-3">
+                               <input type="text" required="true" ng-model="avaliacao.chassi" class="form-control" id="chassi" placeholder="Chassi">
+                           </div>
+                       </div>    
+                  </div>
+                  
+                  <!-- Combo das Renavam -->
+                   <div class="form-group"> 
+                       <div class="row">
+                           <label for="renavam" class="col-sm-2 control-label">Renavam</label>
+                           <div class="col-sm-3">
+                               <input type="text" required="true" ng-model="avaliacao.renavam" class="form-control" id="renavam" placeholder="Renavam">
+                           </div>
+                       </div>    
+                  </div>
+                  
+                  <!-- Combo das Km -->
+                   <div class="form-group"> 
+                       <div class="row">
+                           <label for="km" class="col-sm-2 control-label">KM</label>
+                           <div class="col-sm-3">
+                               <input type="text" required="true" ng-model="avaliacao.km" class="form-control" id="km" placeholder="KM">
+                           </div>
+                       </div>    
+                  </div>
+                  
+                   <!-- CAMPO das Obs -->
+                   <div class="form-group"> 
+                       <div class="row">
+                           <label for="valor" class="col-sm-2 control-label">Valor Avaliado</label>
+                           <div class="col-sm-2">
+                               <input type="text" required="true" ng-model="avaliacao.valor" class="form-control" id="valor" placeholder="Valor avaliado (R$)">
+                           </div>
+                       </div>    
+                  </div>
+                  
+                   <!--Empresas  -->
+                  <div class="form-group">
+                       <div class="row">
+                           <label  class="col-sm-2 control-label">Empresa</label>  
+	                       <div class="col-md-3">
+		                      <select id="selectEmpresas" class="form-control" ng-model="avaliacao.empresa" ng-options="empresa.nome for empresa in dataEmpresas track by empresa.nome">
+                              </select>
+                           </div>
+	               		</div>
+	               </div>
+                  
+                   <!--Vendedor -->
+                  <div class="form-group">
+                       <div class="row">
+                           <label  class="col-sm-2 control-label">Vendedor</label>  
+	                       <div class="col-md-3">
+		                      <select id="selectVendedor" class="form-control" ng-model="avaliacao.vendedor" ng-options="vendedor.nome for vendedor in dataVendedores track by vendedor.nome">
+                              </select>
+                           </div>
+	                  </div>
+	                </div>
+	               
+	               <!-- CAMPO das Obs -->
+                   <div class="form-group"> 
+                       <div class="row">
+                           <label for="obs" class="col-sm-2 control-label">Observções</label>
+                           <div class="col-sm-6">
+                               <input type="text" required="true" ng-model="avaliacao.obs" class="form-control" id="obs" placeholder="Observações Gerais">
+                           </div>
+                       </div>    
+                  </div>
+
+                   <div  class="form-group">
+                       <div class="row">
+                           <div class="col-md-3" align="right">
+                              <button type="submit" ng-click="salvar()" class="btn btn-success">Salvar</button>
+                              <a class="btn btn-success" href="#avaliacaolist">Cancelar</a>
+                       </div>
+                   </div>    
+                </div>      
+                  
+             </div>     
+              </form>
+      
+      </div>
+              
+         
+    </section><!-- right col -->
+ </div>
+ 
+ <script language="javascript">
+ 
+	 	$('#placa').mask('AAA-0000');	
+</script>	
+  
+ 
+ 
+ </html>
+ 
+ 

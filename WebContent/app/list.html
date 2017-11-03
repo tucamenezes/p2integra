@@ -1,0 +1,44 @@
+<html ng-app="p2app">
+ 
+<div class="container">
+   <section class="content-header">
+      <h1>Lista de Aplicações </h1>
+   </section>
+   
+   <!-- Main content --> 
+    <section class="content">
+      <div class="container">
+        <div class="col-md-6">
+          <br/><br/>
+          <label> Filtro : <input type="text" ng-model="filtro"> </label> 
+          <br/>
+        </div>
+      <br/>
+      </div>
+      <div class="container" ng-init="listarApps();" ng-controller="appController">
+       
+
+               <table class="table table-striped table-hover">
+                 <th>Id</th>
+                 <th>Descrição</th>  
+                 <th>Status</th>
+                 <tr ng-repeat="app in data | filter:filtro"	ng-click="selecionaApp(app)">
+                    <td>{{app.id}}</td>
+                    <td>{{app.descricao}}</td> 
+                    <td>{{app.status}}</td>
+                 </tr>
+               </table>
+               
+               <div align="left" >
+               <a class="btn btn-success" href="#app/cadastro">Novo</a>
+               <a class="btn btn-success" ng-click="editarApp(app.id);">Editar</a>
+               <a class="btn btn-success" ng-click="removerApp(app.id);">Excluir</a>
+            </div>  
+
+           </div>
+           
+
+    </section>
+ </div>
+ 
+ </html>

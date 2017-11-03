@@ -1,0 +1,164 @@
+<div class="container">
+   <section class="content-header">
+      <h1>Cadastro de Clientes - Empresas </h1>
+   </section>
+   
+   <!-- Main content -->
+    <section class="content">
+      <div class="container" ng-init="carregarEstados();carregarContas();">
+      
+      
+         <form class="form-horizontal" ng-submit="salvarEmpresa();">
+                 
+                  </br>
+                  <!-- Combo das contas -->
+                  <div class="form-group">
+                       <div class="row">
+                           <label  class="col-sm-2 control-label">Conta</label>  
+	                       <div class="col-md-3"> 
+							 <select id="selecContas2" class="form-control" ng-model="empresa.conta" ng-options="conta.nome for conta in dataContas track by conta.nome">
+                              </select>
+	                        </div>
+	                   </div>
+                     </div>
+                  
+                  <!-- CnPj da empresa -->
+                  <div class="form-group"> 
+                       <div class="row">
+                           <label for="cnpj" class="col-sm-2 control-label">CNPJ</label>
+                           <div class="col-sm-3">
+                               <input type="text" required="false" ng-model="empresa.cnpj" class="form-control" id="cnpj" placeholder="CNPJ da Empresa">
+                           </div>
+                       </div>    
+                  </div>
+                  
+                 <!-- Nome da empresa -->
+                  <div class="form-group"> 
+                       <div class="row">
+                           <label for="nome" class="col-sm-2 control-label">Nome</label>
+                           <div class="col-sm-6">
+                               <input type="text" required="false" ng-model="empresa.nome" class="form-control" id="nome" placeholder="Nome da Empresa">
+                           </div>
+                       </div>    
+                  </div>
+                  
+                  <!-- Nome de contato -->
+                  <div class="form-group"> 
+                       <div class="row">
+                           <label for="nomeContato" class="col-sm-2 control-label">Contato - Nome</label>
+                           <div class="col-sm-6">
+                               <input type="text" required="false" ng-model="empresa.nomeContato" class="form-control" id="nomeContato" placeholder="Nome do Contato">
+                           </div>
+                       </div>    
+                  </div>
+                  
+                   <!-- Email de contato -->
+                  <div class="form-group"> 
+                       <div class="row">
+                           <label for="email" class="col-sm-2 control-label">Email</label>
+                           <div class="col-sm-6">
+                               <input type="email" required="false" ng-model="empresa.email" class="form-control" id="email" placeholder="Email do Contato">
+                           </div>
+                       </div>    
+                  </div>
+                  
+                   <!--Telefone  -->
+                  <div class="form-group"> 
+                       <div class="row">
+                           <label for="telefone" class="col-sm-2 control-label">Telefone</label>
+                           <div class="col-sm-3">
+                               <input type="text" required="false" ng-model="empresa.telefone" class="form-control" id="telefone" placeholder="Telefone da Empresa">
+                           </div>
+                       </div>    
+                  </div>
+                  
+                  <!--Endereco  -->
+                  <div class="form-group"> 
+                       <div class="row">
+                           <label for="endereco" class="col-sm-2 control-label">Endereço</label>
+                           <div class="col-sm-6">
+                               <input type="text" required="false" ng-model="empresa.endereco" class="form-control" id="endereco" placeholder="Endereco da Empresa">
+                           </div>
+                       </div>    
+                  </div>
+                  
+                  <!--Estado  --> 
+                   <div class="form-group">
+                       <div class="row">
+                           <label  class="col-sm-2 control-label">UF</label>  
+	                       <div class="col-md-3">
+		                      <select ng-model="empresa.estados.id"  id="selectEstados" class="form-control" onchange="javascript:carregarCidadesChrome(this);"> 
+							  <option value="">Selecione</option> 
+							  <option
+							  	ng-repeat="est in dataEstados"  
+							  	ng-click="carregarCidades(est)"
+							  	value="{{est.id}}">{{est.sigla}}
+							  </option>
+							</select>	
+	                        </div>
+	                   </div>
+                     </div>
+                     
+                  <!--Cidade  --> 
+                   <div class="form-group">
+                       <div class="row">
+                           <label for="status" class="col-sm-2 control-label">Cidade</label>  
+	                       <div class="col-md-3">
+		                       <select id="selectCidades" class="form-control" ng-model="empresa.cidades.id" required="true">
+		                          <option>Escolha uma Cidade</option>
+		                          <option ng-repeat="cidade in dataCidades" value="{{cidade.id}}">{{cidade.nome}}</option>
+		                       </select>
+	                        </div>
+	                   </div>
+                     </div>   
+                  
+                  <!--IE  -->
+                  <div class="form-group"> 
+                       <div class="row">
+                           <label for="inscricaoEstadual" class="col-sm-2 control-label">IE</label>
+                           <div class="col-sm-2">
+                               <input type="text" required="true" ng-model="empresa.inscricaoEstadual" class="form-control" id="inscricaoEstadual" placeholder="IE da Empresa">
+                           </div>
+                       </div>    
+                  </div>
+                  
+                  <!--IM  -->
+                  <div class="form-group"> 
+                       <div class="row">
+                           <label for="inscricaoMunicipal" class="col-sm-2 control-label">IM</label>
+                           <div class="col-sm-2">
+                               <input type="text" required="true" ng-model="empresa.inscricaoMunicipal" class="form-control" id="inscricaoMunicipal" placeholder="IM da Empresa">
+                           </div>
+                       </div>    
+                  </div>
+                  
+                  <!--Status  --> 
+                   <div class="form-group">
+                       <div class="row">
+                           <label for="status" class="col-sm-2 control-label">Status</label>  
+	                       <div class="col-md-3">
+		                       <select class="form-control" ng-model="empresa.status" required="true">
+		                          <option value="A">Ativo</option>
+		                          <option value="I">Inativo</option>
+		                       </select>
+	                        </div>
+	                   </div>
+                     </div>
+
+                   <div  class="form-group">
+                       <div class="row">
+                           <div class="col-md-3" align="right">
+                              <button type="submit" ng-click="salvar()" class="btn btn-default">Salvar</button>
+                              <button type="submit" ng-click="" class="btn btn-default">Cancelar</button>
+                       </div>
+                   </div>    
+                      
+                  
+                  
+              </form>
+      
+      </div>
+              
+         
+    </section><!-- right col -->
+ </div>

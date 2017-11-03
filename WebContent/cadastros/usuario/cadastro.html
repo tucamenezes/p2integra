@@ -1,0 +1,121 @@
+<div class="container">
+   <section class="content-header">
+      <h1>Lista de Usuários </h1>
+   </section>
+   
+   <!-- Main content -->
+    <section class="content">
+      <div class="container" ng-init="carregarContas();">
+      
+      
+         <form class="form-horizontal" name="formCad" ng-submit="salvarUsuario();">
+                 
+                  </br>
+                  <!-- Combo das contas -->
+                  <div class="form-group">
+                       <div class="row">
+                           <label  class="col-sm-2 control-label">Conta</label>  
+	                       <div class="col-md-3">
+		                      <select id="selecContas2" class="form-control" ng-model="usuario.conta" ng-options="conta.nome for conta in dataContas track by conta.nome">
+                              </select>
+                           </div>
+	                   </div>
+                     </div>
+                  
+                  
+                 <!-- Nome -->
+                  <div class="form-group"> 
+                       <div class="row">
+                           <label for="nome" class="col-sm-2 control-label">Nome</label>
+                           <div class="col-sm-6">
+                               <input type="text" required="false" ng-model="usuario.nome" class="form-control" id="nome" placeholder="Nome do Usuario">
+                           </div>
+                       </div>    
+                  </div>
+                  
+                  <!-- userName -->
+                  <div class="form-group"> 
+                       <div class="row">
+                           <label for="userName" class="col-sm-2 control-label">Username - Login</label>
+                           <div class="col-sm-6">
+                               <input type="text" required="false" ng-model="usuario.username" class="form-control" id="username" placeholder="Usernamne">
+                               
+                           </div>
+                       </div>    
+                  </div>
+                  
+                  <!-- Password -->
+                  <div class="form-group"> 
+                       <div class="row">
+                           <label for="password" class="col-sm-2 control-label">Senha</label>
+                           <div class="col-sm-6">
+                               <input type="password" required="true" ng-model="usuario.password" class="form-control" id="password" placeholder="Senha de acesso">
+                           </div>
+                       </div>    
+                  </div>
+                  <!-- Password Validation-->
+                  <div class="form-group"> 
+                       <div class="row">
+                           <label for="passwordVal" class="col-sm-2 control-label">Repetir Senha</label>
+                           <div class="col-sm-6">
+                               <input type="password" required="false" ng-model="passwordValidation" class="form-control" id="passwordValidation" placeholder="Repetir Senha">
+                           </div>
+                       </div>    
+                  </div>
+                  
+                  <!--Perfil  --> 
+                   <div class="form-group">
+                       <div class="row">
+                           <label for="perfil" class="col-sm-2 control-label">Perfil de Acesso</label>  
+	                       <div class="col-md-3">
+		                       <select class="form-control" ng-model="usuario.perfil" required="true">
+		                          <option value="ADMIN">Admin</option>
+		                          <option value="USER">User</option>
+		                          <option value="MOBILE">Mobile</option>
+		                       </select>
+	                        </div>
+	                   </div>
+                     </div>
+                  
+                  <!--Status  --> 
+                   <div class="form-group">
+                       <div class="row">
+                           <label for="status" class="col-sm-2 control-label">Status</label>  
+	                       <div class="col-md-3">
+		                       <select class="form-control" ng-model="usuario.status" required="true">
+		                          <option value="A">Ativo</option>
+		                          <option value="I">Inativo</option>
+		                       </select>
+	                        </div>
+	                   </div>
+                     </div>
+                     
+                    <!--Foto  -->   
+                     <div class="form-group">
+                       <div class="row">
+                           <label for="status" class="col-sm-2 control-label">Foto</label>  
+	                       <div class="col-md-3">
+		                       <img alt="Nova imagem" id="imagemCliente" src="" style="width: 118px; height: 140px;" border: "0">
+		                       <input type="file" id="file" onchange="javascript:visualisarImagem();">
+	                        </div>
+	                   </div>
+                     </div>
+                      
+                   <div  class="form-group">
+                       <div class="row">         
+                           <div class="col-md-3" align="right">
+                              <button type="submit" ng-click="salvar();" class="btn btn-default">Salvar</button>
+                              <button type="submit" ng-click="" class="btn btn-default">Cancelar</button>
+                       </div>
+                   </div>  
+                   
+                   
+                  
+                  
+              </form>
+      
+      </div>
+              
+         
+    </section><!-- right col -->
+ </div>

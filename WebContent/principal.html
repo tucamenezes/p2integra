@@ -1,0 +1,67 @@
+<html ng-app="p2app"> 
+
+<div class="container">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Dashboard
+            <small>Empresa Teste</small>
+          </h1>
+          
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
+            <div class="col-lg-3 col-xs-6" ng-show="verificarAcesso(13)">
+              <!-- small box -->
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>150</h3>
+                  <p>Orçamentos a Liberar</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="#orcamentolist" class="small-box-footer">Mais info <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6" ng-show="verificarAcesso(9)">
+              <!-- small box -->
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>53</h3>
+                  <p>Descontos de Novos</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="#" class="small-box-footer">Mais info <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6" ng-show="verificarAcesso(10)">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>44</h3>
+                  <p>Avaliações</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-ios-pricetag-outline"></i>
+                </div>
+                <a href="#avaliacaolist" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              
+            </div><!-- ./col -->
+          </div><!-- /.row -->
+         
+
+          
+        </section><!-- right col -->
+       </div><!-- /.row (main row)  painel central-->  
+       
+ </html>

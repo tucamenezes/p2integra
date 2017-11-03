@@ -1,0 +1,57 @@
+<div class="container">
+   <section class="content-header">
+      <h1>Lista de Usuários </h1>
+   </section>
+   
+   <!-- Main content -->
+    <section class="content">
+      <div class="container" ng-init="carregarContas();carregarApp();">
+      
+      
+         <form class="form-horizontal" name="formCad" ng-submit="salvarAppConta();">
+                 
+                  </br>
+                  <!-- Combo das contas -->
+                  <div class="form-group">
+                       <div class="row">
+                           <label  class="col-sm-2 control-label">Conta</label>  
+	                       <div class="col-md-3">
+		                      <select id="selecContas2" class="form-control" ng-model="appConta.conta" ng-options="conta.nome for conta in dataContas track by conta.nome">
+                              </select>
+                           </div>
+	                   </div>
+                     </div>
+                     
+                 
+                  <!-- Combo das Apps -->
+                  <div class="form-group">
+                       <div class="row">
+                           <label  class="col-sm-2 control-label">App</label>  
+	                       <div class="col-md-3">
+		                      <select id="selecApp" class="form-control" ng-model="appConta.app" ng-options="app.descricao for app in dataApps track by app.descricao">
+                              </select>
+                           </div>
+	                   </div>
+                     </div>
+                 
+                 
+                 
+                 
+                 
+                  <div  class="form-group">
+                       <div class="row">
+                           <div class="col-md-3" align="right">
+                              <button type="submit" ng-click="salvar();" class="btn btn-default">Salvar</button>
+                              <button type="" ng-click="cancelarOperacao();" class="btn btn-default">Cancelar</button>
+                       </div>
+                   </div>    
+                      
+                  
+                  
+              </form>
+      
+      </div>
+              
+         
+    </section><!-- right col -->
+ </div>
