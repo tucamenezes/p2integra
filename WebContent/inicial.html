@@ -148,6 +148,20 @@
                 <i class="fa fa-laptop"></i> <span>Avaliações</span>
               </a>
             </li>
+            
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-dashboard"></i> <span>Auditoria</span> <i class="fa fa-angle-left pull-right"></i>
+              </a>
+           	 	<ul class="treeview-menu">
+                		  <li ng-show="verificarAcesso(13)"><a href="#auditoriaorcamento"><i class="fa fa-circle-o"></i> Orçamento</a></li>
+                		  <li ng-show="verificarAcesso(9)"><a href="#auditoriadesconto"><i class="fa fa-circle-o"></i> Descontos Veiculos</a></li>
+              		  <li ng-show="verificarAcesso(10)"><a href="#auditoriaavalia"><i class="fa fa-circle-o"></i> Avaliações</a></li>
+              	</ul>
+            </li>
+            
+            
+            
              
             
         </section>

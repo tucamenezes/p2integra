@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AuditotiaAvaliacoes" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="20789d31-caf5-4673-8549-40449df6dbc2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="data_inicial" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="data_final" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="status" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select a.id, m.descricao || '-' || m.ano_modelo as veiculo, a.data, c.nome, a.valor,
+       v.nome_nbs, a.data_liberacao, u.nome liberador, a.placa
+  from avaliacoes a LEFT OUTER JOIN usuarios u on a.id_liberador =  u.id, modelos m, cliente_veiculo c, vendedores v
+ where a.id_modelo = m.id
+   and a.id_cliente=c.id
+   and a.id_vendedor = v.id
+   and a.data >= to_date($P{data_inicial},'dd/mm/yyyy')
+   and a.data <= to_date($P{data_final},'dd/mm/yyyy')
+   and coalesce(a.liberado,'N') = $P{status}]]>
+	</queryString>
+	<field name="id" class="java.lang.Long"/>
+	<field name="veiculo" class="java.lang.String"/>
+	<field name="data" class="java.sql.Date"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="valor" class="java.lang.Float"/>
+	<field name="nome_nbs" class="java.lang.String"/>
+	<field name="data_liberacao" class="java.sql.Timestamp"/>
+	<field name="liberador" class="java.lang.String"/>
+	<field name="placa" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="228" y="5" width="310" height="26" uuid="94e3c94b-beed-457a-877a-ee1b7401e87f"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Auditoria em Avalições de Seminovos]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="718" y="11" width="79" height="20" uuid="61773a53-e699-4c48-ba25-071996a7077b"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="677" y="11" width="31" height="20" uuid="b929d011-9a11-4d75-9b74-cebd6ab587b6"/>
+				<text><![CDATA[Data :]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="38" height="20" uuid="bf4677a5-286d-4ba5-9b40-6ec3bc701387"/>
+				<text><![CDATA[Id. Avalia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="0" width="149" height="20" uuid="523cb53e-36be-48c0-9c41-d82e0d2c107d"/>
+				<text><![CDATA[Veiculo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="272" y="0" width="58" height="20" uuid="60fa43d3-43c3-4904-a19b-7cbd3bf438af"/>
+				<text><![CDATA[Placa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="0" width="177" height="20" uuid="2bd0238f-bf15-47a5-aecd-7eb346d44ac1"/>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="507" y="0" width="68" height="20" uuid="e953350e-3bba-4a2f-be18-072b2e5d7693"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="665" y="0" width="77" height="20" uuid="cc11c603-9785-4332-930f-a4d6b7253104"/>
+				<text><![CDATA[Data Lib.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="23" width="802" height="1" uuid="05720e73-aaaf-4153-b52d-5c488ad29290"/>
+			</line>
+			<staticText>
+				<reportElement x="585" y="0" width="80" height="20" uuid="68921b68-6b88-4591-871a-18e1505e340d"/>
+				<text><![CDATA[Avalidador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="742" y="0" width="60" height="20" uuid="dd39ca23-f910-4cf7-95b4-b6c7587abdf8"/>
+				<text><![CDATA[Liberador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="187" y="0" width="85" height="20" uuid="ffbe520a-5a11-4a48-b8cc-2d4d2333660b"/>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="0" width="36" height="20" uuid="d1ced3be-4a4a-47fc-ac29-069d2de4ff72"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="38" y="0" width="149" height="20" uuid="fece583b-8a10-4ed3-a6d7-47050ee0a80e"/>
+				<textFieldExpression><![CDATA[$F{veiculo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="0" width="85" height="20" uuid="e0c42faa-8f71-4197-885e-8f63f225c4b4"/>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="272" y="0" width="58" height="20" uuid="8b391e61-3bd0-431c-a840-aad404fa3cc9"/>
+				<textFieldExpression><![CDATA[$F{placa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="177" height="20" uuid="dada9bbd-f862-48dd-ac83-cc0271069380"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="507" y="0" width="68" height="20" uuid="30e23fd8-0c95-4fbc-9a60-1a02668e5e33"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="585" y="0" width="80" height="20" uuid="6a57708c-bdd3-40e7-bed5-0edd3b1c1b2c"/>
+				<textFieldExpression><![CDATA[$F{nome_nbs}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="665" y="0" width="67" height="20" uuid="68fd8076-8fa4-4801-8c41-0b200e4de7bf"/>
+				<textFieldExpression><![CDATA[$F{data_liberacao}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="742" y="0" width="55" height="20" uuid="8a3466b8-fdd4-4f82-af73-d9052904b0bf"/>
+				<textFieldExpression><![CDATA[$F{liberador}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="14" width="140" height="20" uuid="d1a88ba4-2a96-4603-92ad-edffa092ad27"/>
+				<text><![CDATA[P2 Tecnologia - P2 Integra]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="677" y="14" width="80" height="20" uuid="e7f157ac-172c-4f1d-a1d9-62e40b85dbfc"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="757" y="14" width="40" height="20" uuid="fa4811e8-86a7-4846-95a4-491b914c53f4"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="2" y="6" width="798" height="5" uuid="bb31b260-2896-4bd0-ac2f-12783953983f"/>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

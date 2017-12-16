@@ -84,15 +84,7 @@ public class Contas implements Serializable {
 	}
 
 
-	public String getEmpresa() {
-		return nome;
-	}
-
-
-	public void setEmpresa(String nome) {
-		this.nome = nome;
-	}
-
+	
 
 	public String getHashValidation() {
 		return hashValidation;

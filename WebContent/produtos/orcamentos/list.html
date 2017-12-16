@@ -20,14 +20,14 @@
 		                    <option ng-repeat="x in dataGestores | orderBy:'nome'" value="{{x.nome}}">{{x.nome}}</option>
 		                 </select>
 		                 
-		                 <br><input type="checkbox" id="statusLib" nome="statusLib" ng-model="orcamento.statusAtivo"> Mostrar Liberados
+		                 <br><input type="checkbox" id="filtarPeriodo" nome="statusLib" ng-model="filtrarPeriodo"> Filtrar por Período
 		           
 		           </div>
 		       
 		              
 		              
 		        <!-- Main content -->
-		        <section class="content" ng-show="orcamento.statusAtivo">
+		        <section class="content" ng-show="filtrarPeriodo">
 		          <div class="row">
 		            <div class="col-md-6">
 		
@@ -56,9 +56,13 @@
 		                      <input type="text" id="dataFinal" ng-model="dataFinal" name="dataFinal" class="form-control"  data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
 		                    </div><!-- /.input group -->
 		                  </div><!-- /.form group -->
+		                  
+		                   <div class="container">
+		                      <input type="checkbox" id="statusLib" nome="statusLib"> Orçamentos já Liberados
+		                   </div>  
 		
-		                 
-		                  <button class="btn btn-block btn-primary" ng-click="getOrcamentosDefault()" id="btnAtualizar">Atualizar</button>
+		                 <br>
+		                  <button class="btn btn-block btn-primary" ng-click="listarOrcamentos(orcamento.statusLib)" id="btnAtualizar">Atualizar</button>
 		                  
 		                </div><!-- /.box-body -->
 		              </div><!-- /.box -->
@@ -101,7 +105,7 @@
 		
 		           </div>
 		           <div class="col-md-2">
-		              <button ng-disabled="!orcamento.idOrcamento" class="btn btn-block btn-primary" ng-click="liberar()" id="btnLiberar">Liberar Selecionado</button> 
+		              <button ng-disabled="!orcamento.id" class="btn btn-block btn-primary" ng-click="liberarOrcamento()" id="btnLiberar">Liberar Selecionado</button> 
 		           </div>
 		
 		

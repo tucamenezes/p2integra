@@ -16,6 +16,7 @@ import br.com.p2.dao.DaoInterface;
 import br.com.p2.dao.DaoInterfaceImplements;
 import br.com.p2.hibernate.HibernateUtilHQL;
 import br.com.p2.model.Contas;
+import br.com.p2.util.GenerateHashPasswordUtil;
 
 
 @Controller
@@ -46,7 +47,15 @@ public class ContaController extends DaoInterfaceImplements<Contas> implements D
 	@ResponseBody
 	public ResponseEntity salvarApp(@RequestBody String jSonApp) throws Exception {
 		
+		Integer random = 9999 + (int) (Math.random() * 100000);
+		
 	    Contas conta = new Gson().fromJson(jSonApp, Contas.class);
+	    //so atualiza se estiver em branco
+	    if (conta.getHashValidation() == null || conta.getHashValidation().isEmpty()) {
+	    	    	        conta.setHashValidation(GenerateHashPasswordUtil.generateHash(random.toString()));
+	    	    	 
+	    }
+	    
 	    super.salvarAtualizar(conta);
 	    
      

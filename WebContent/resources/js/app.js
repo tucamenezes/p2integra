@@ -44,8 +44,13 @@ app.config(['$routeProvider', function($routeProvider,$provide, $httpProvide, $l
 		    
      //-------------Orcamentos --------------
   
-  $routeProvider.when("/orcamentolist",      {controller : "orcamentoController",templateUrl : "produtos/orcamentos/list.html"})// listar		
-				    
+   $routeProvider.when("/orcamentolist",      {controller : "orcamentoController",templateUrl : "produtos/orcamentos/list.html"})// listar		
+   
+   //-------------Auditorias  --------------
+   $routeProvider.when("/auditoriaavalia",       {controller : "avaliacaoController",templateUrl : "produtos/avaliacoes/auditoria.html"})// avaliacao
+                 .when("/auditoriaorcamento",    {controller : "orcamentoController",templateUrl : "produtos/orcamentos/auditoria.html"}) //orcamento
+			    //.when("/auditoriadesconto",     {controller : "avaliacaoController",templateUrl : "produtos/avaliacoes/cadastro.html"})// novo	
+			  	    
 	      .otherwise({redirectTo: "/"});
 }]);
 
@@ -78,6 +83,17 @@ app.controller('appController', function($scope,$http, $location, $routeParams) 
 	  }).error(function(data, status, headers, config) {
 	  	  console.log("Erro : "  + status);
 	  });
+	
+  }
+  
+$scope.imprimirAuditoriaAvalia = function() {
+	 alert();
+	 
+	 $http.get("imprimirAuditoria/avalia?dataInicial=01/01/2010&dataFinal=01/01/2020").success(function(response) {
+			
+		}).error(function(data, status, headers, config) {
+			console.log(status);
+		})
 	
   }
   

@@ -1,6 +1,10 @@
 package br.com.p2.controller;
 
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -16,6 +21,7 @@ import com.google.gson.Gson;
 import br.com.p2.dao.DaoInterface;
 import br.com.p2.dao.DaoInterfaceImplements;
 import br.com.p2.hibernate.HibernateUtilHQL;
+import br.com.p2.model.Contas;
 import br.com.p2.model.ContasApps;
 import br.com.p2.model.Usuarios;
 
@@ -94,6 +100,39 @@ public class ContaAppController extends DaoInterfaceImplements<ContasApps> imple
 		return new Gson().toJson(lista);		
 		
 	}	
+	
+	
+	@RequestMapping(value="validarlicenca", method=RequestMethod.GET)
+	@ResponseBody
+	public String listar(@RequestParam("idConta") String idConta, @RequestParam("idApp") String idApp, @RequestParam("hashcode") String hashCode) throws Exception {
+		
+		String retorno = "";
+		
+      	List resultado =  new ArrayList();
+      	
+      	resultado = HibernateUtilHQL.getListSqlHQL("from Contas as a where a.id = " + idConta + 
+      											  " and a.hashValidation = '"+ hashCode + "'" +
+      											  "  and a.status ='A'");
+      	
+      	if (resultado.isEmpty()) {
+      		retorno = "Empresa não encontrada ou não ativa!";
+      	} else if (resultado.size() >0) {
+      		//empresa OK, validando o modulo
+      		if (appContaExiste(idApp, idConta)) {
+          		retorno = "P2OK";
+          	} else {
+          		retorno = "Empresa válida mas módulo não ativo para o cadastro, entre em contato com o suporte!";
+          	}
+      	}
+      	
+      	
+      		
+      	
+        
+		//return retorno;
+      	return new Gson().toJson(retorno);		
+		
+	}
 	
 	
 	

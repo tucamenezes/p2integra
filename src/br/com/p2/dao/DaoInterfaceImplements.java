@@ -1,5 +1,6 @@
 package br.com.p2.dao;
 
+
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -86,6 +87,8 @@ public abstract class DaoInterfaceImplements<T> implements DaoInterface<T>{
    public SessionFactory getSessionFactory() {
 	   return sessionFactory;
    }
+   
+
 
    public Class<T> getPersistenceClass() {
 	   return persistenceClass;

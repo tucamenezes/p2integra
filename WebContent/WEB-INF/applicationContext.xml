@@ -111,6 +111,15 @@
 	     </bean>   
       
       
+      <!-- Impressao de relatorios  -->
+
+         <bean id="fileDownloaderController" name="fileDownloaderController" class="br.com.p2.controller.FileDownloaderController">
+	       		
+	     </bean>   
+	     
+	       <bean id="reportUtil" name="reportUtil" class="br.com.p2.util.ReportUtil">
+	       		
+	     </bean>        
       
      
       

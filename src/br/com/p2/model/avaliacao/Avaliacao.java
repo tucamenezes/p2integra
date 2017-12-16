@@ -54,7 +54,6 @@ public class Avaliacao implements Serializable {
 	@JoinColumn(name="id_vendedor",referencedColumnName="id")
 	private Vendedor vendedor;
 	
-	
 	@ManyToOne()
 	@JoinColumn(name="id_empresa",referencedColumnName="id")
 	private Empresas empresa;
@@ -89,6 +88,11 @@ public class Avaliacao implements Serializable {
 	@Column(name="liberado", length=2)
 	private String liberada;
 	
+	
+	@ManyToOne()
+	@JoinColumn(name="id_liberador",referencedColumnName="id")
+	private Usuarios liberador;
+	
 	@Column(name="status", length=2, nullable=false)
 	private String status;
 	
@@ -98,7 +102,7 @@ public class Avaliacao implements Serializable {
 
 	public Avaliacao(Long id, Contas conta, Modelo modelo, ClienteVeiculo cliente, Usuarios usuario, Vendedor vendedor,
 			Empresas empresa, String placa, String chassi, Long km, String renavam, Date dataAvaliacao,
-			Date dataLiberacao, Float valor, String obs, String liberada, String status) {
+			Date dataLiberacao, Float valor, String obs, String liberada, Usuarios liberador, String status) {
 		super();
 		this.id = id;
 		this.conta = conta;
@@ -116,6 +120,7 @@ public class Avaliacao implements Serializable {
 		this.valor = valor;
 		this.obs = obs;
 		this.liberada = liberada;
+		this.liberador = liberador;
 		this.status = status;
 	}
 
@@ -272,6 +277,15 @@ public class Avaliacao implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public Usuarios getLiberador() {
+		return liberador;
+	}
+	
+	public void setLiberador(Usuarios liberador) {
+		this.liberador = liberador;
+	}
+	
 	
 	public String getLiberada() {
 		return liberada;

@@ -81,7 +81,7 @@ public class OrcamentoController extends DaoInterfaceImplements<Orcamento> imple
 	
 
 	
-	@RequestMapping(value="liberar/{idOrcamento}", method=RequestMethod.GET)
+	@RequestMapping(value="liberar/{idOrcamento}", method=RequestMethod.POST)
 	public @ResponseBody String liberarAvaliacao(@PathVariable("idOrcamento") String idOrcamento) throws Exception {
 		
 		
@@ -98,6 +98,8 @@ public class OrcamentoController extends DaoInterfaceImplements<Orcamento> imple
 		objeto.setDataLiberacao(Calendar.getInstance().getTime());
 		//libera o orcamento
 		objeto.setLiberado("S");
+		// atualiza o status
+	    objeto.setStatus("L");
 		
 		super.salvarAtualizar(objeto);
 		

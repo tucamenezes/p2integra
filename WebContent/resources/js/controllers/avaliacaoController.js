@@ -20,6 +20,7 @@ app.controller('avaliacaoController', function($scope,$http, $location, $routePa
 	
 	
 	
+	
     $scope.validaCliente = function(numCpf){
     
     	
@@ -27,8 +28,7 @@ app.controller('avaliacaoController', function($scope,$http, $location, $routePa
     		
     		 $http.get("avaliacoes/buscarcliente/"+numCpf).success(function(response) {
     				$scope.clienteVeiculo = response;
-    				console.log($scope.clienteVeiculo);
-    				console.log($scope.clienteVeiculo["0"].nome);
+    				
     				
     			 	if ($scope.clienteVeiculo["0"].id != null && $scope.clienteVeiculo["0"].id != undefined && $scope.clienteVeiculo["0"].id !='') {
     			 		
@@ -93,7 +93,7 @@ app.controller('avaliacaoController', function($scope,$http, $location, $routePa
 			$scope.edicao = true;
 			$scope.nomeCliente = $scope.avaliacao.cliente.nome;
 			$scope.cpf = $scope.avaliacao.cliente.cpf;
-			console.log($scope.cpf);
+			
 		
 		}).error(function(data, status, headers, config) {
 			console.log(status);
@@ -356,6 +356,41 @@ function visualisarImagem(){
 		preview.src = "";
 	}
 }
+
+//listar documento pdf
+function imprimirAuditoriaAvalia() {
+	
+	
+	  var podeConsultar=true;
+	  var dataInicial = document.getElementById("dataInicial").value;
+	  var dataFinal = document.getElementById("dataFinal").value; 
+	  var idStatus ;
+	 
+	  
+	  if (document.getElementById("statusAvaliacao").checked){
+		  idStatus='S';
+	  } else {
+		  idStatus='N'
+	  }
+
+ 
+      if (dataInicial === null || dataInicial === undefined || dataInicial ==='' || dataFinal === null || dataFinal === undefined || dataFinal ==='') {
+  	       podeConsultar= false;
+	    }
+  	
+
+  if (podeConsultar) {
+	  alert("imprimirAuditoria/avalia?status="+idStatus+"&dataInicial="+dataInicial+"&dataFinal="+dataFinal);
+	  
+	    document.location.href="imprimirAuditoria/avalia?status="+idStatus+"&dataInicial="+dataInicial+"&dataFinal="+dataFinal;	
+  } else {
+  	  alert("Defina todos os campos para busca!");
+  }
+  	
+			
+			
+};
+
 
 
 

@@ -5,6 +5,7 @@ package br.com.p2.controller;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -99,6 +100,7 @@ public class AvaliacaoController extends DaoInterfaceImplements<Avaliacao> imple
 		   //grava a conta do usuario do sistema.
 			System.out.println(avaliacao.getId());
 		   avaliacao.setStatus("A");
+		   avaliacao.setUsuario(HibernateUtilHQL.buscaDadosUsuarioLogado());
 		   avaliacao.setConta(HibernateUtilHQL.buscaDadosUsuarioLogado().getConta());	
 		   avaliacao.setDataAvaliacao(Calendar.getInstance().getTime());
 		}
@@ -122,7 +124,7 @@ public class AvaliacaoController extends DaoInterfaceImplements<Avaliacao> imple
 		objeto.setId(Long.parseLong(idAvaliacao));
 		objeto.setStatus("I");
 		super.salvarAtualizar(objeto);
-		
+		 
 		
 		return "";
 		
@@ -138,6 +140,7 @@ public class AvaliacaoController extends DaoInterfaceImplements<Avaliacao> imple
 		
 		objeto.setId(Long.parseLong(idAvaliacao));
 		objeto.setLiberada("S");
+		objeto.setLiberador(HibernateUtilHQL.buscaDadosUsuarioLogado());
 		//atualiza a data de liberacao
 		objeto.setDataLiberacao(Calendar.getInstance().getTime());
 		super.salvarAtualizar(objeto);
@@ -172,5 +175,20 @@ public class AvaliacaoController extends DaoInterfaceImplements<Avaliacao> imple
 		
 		
 	}	
+	
+	
+	
+   public List listarAvaliacoes(String dataInicial, String dataFinal) throws Exception {
+	
+        Usuarios usuarioLogado = HibernateUtilHQL.buscaDadosUsuarioLogado();
+        
+        String liberada = "('S')";
+     
+     
+		return HibernateUtilHQL.getListSqlHQL("from Avaliacao as a where conta.id = " + usuarioLogado.getConta().getId() + 
+				                                                " and dataAvaliacao>= '"+ dataInicial + "' and dataAvaliacao<= '"+ dataFinal 
+				                                                + "'  and a.status in " + liberada);
+		
+	}
 
 }

@@ -13,18 +13,29 @@ app.controller('orcamentoController', function($scope,$http, $location, $routePa
    }
 	
 
-  $scope.liberarOrcamento = function(idOrcamento) {
+	
+  $scope.liberarOrcamento = function() {
+	  
+	  if ($scope.orcamento.id === null || $scope.orcamento.id === undefined || $scope.orcamento.id ==='') {
+		   
+		  alert("Selecione um registro para edição!");
+		  
+	  }  else {
 	  
 	 
-	  $http.post("contas/salvar", $scope.conta).success(function(response) {
-	  	  //limpa os dados
-		  $scope.conta ={};
-		  $location.path("contalist");
-		  
-		  
-	  }).error(function(data, status, headers, config) {
-	  	  console.log("Erro : "  + status);
-	  });
+		  $http.post("orcamentos/liberar/" + $scope.orcamento.id).success(function(response) {
+		  	  //limpa os dados
+			  $scope.orcamento ={};
+			  $location.path("orcamentolist");
+			  alert("Orçamento Liberado com sucesso!");
+			  $scope.listarOrcamentos();
+			  
+			  
+		  }).error(function(data, status, headers, config) {
+		  	  console.log("Erro : "  + status);
+		  });
+	  
+	  }
 	
   }
   
@@ -39,14 +50,18 @@ app.controller('orcamentoController', function($scope,$http, $location, $routePa
 	 var podeConsultar=true;
 	 var dataInicial = document.getElementById("dataInicial").value;
 	 var dataFinal = document.getElementById("dataFinal").value; 
+	 
 	  
 	 
 	 if (idStatus === null ||idStatus === undefined || idStatus ===''){
 		  idStatus='A';
 	  }
-
+	 
+	 if (document.getElementById("statusLib").checked && document.getElementById("filtarPeriodo").checked) {
+		 idStatus = 'L' 
+	 }
     
-    if (document.getElementById("statusLib").checked) {
+    if (document.getElementById("filtarPeriodo").checked) {
         if (dataInicial === null || dataInicial === undefined || dataInicial ==='' || dataFinal === null || dataFinal === undefined || dataFinal ==='') {
     	       podeConsultar=false;
 	    }
@@ -87,4 +102,38 @@ app.controller('orcamentoController', function($scope,$http, $location, $routePa
   
   
 });
+
+//listar documento pdf
+function imprimirOrcamento() {
+	
+	
+	  var podeConsultar=true;
+	  var dataInicial = document.getElementById("dataInicial").value;
+	  var dataFinal = document.getElementById("dataFinal").value; 
+	  var idStatus ;
+	 
+	  
+	  if (document.getElementById("statusAvaliacao").checked){
+		  idStatus='L';
+	  } else {
+		  idStatus='A'
+	  }
+
+ 
+      if (dataInicial === null || dataInicial === undefined || dataInicial ==='' || dataFinal === null || dataFinal === undefined || dataFinal ==='') {
+  	       podeConsultar= false;
+	    }
+  	
+
+  if (podeConsultar) {
+	 // alert("imprimirAuditoria/orcamento?status="+idStatus+"&dataInicial="+dataInicial+"&dataFinal="+dataFinal);
+	  
+	    document.location.href="imprimirAuditoria/orcamento?status="+idStatus+"&dataInicial="+dataInicial+"&dataFinal="+dataFinal;	
+  } else {
+  	  alert("Defina todos os campos para busca!");
+  }
+  	
+			
+			
+};
 
