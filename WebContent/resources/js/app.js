@@ -45,7 +45,11 @@ app.config(['$routeProvider', function($routeProvider,$provide, $httpProvide, $l
      //-------------Orcamentos --------------
   
    $routeProvider.when("/orcamentolist",      {controller : "orcamentoController",templateUrl : "produtos/orcamentos/list.html"})// listar		
+  
+    //-------------Descontos de Novos --------------
    
+   $routeProvider.when("/propostaslist",      {controller : "propostaController",templateUrl : "produtos/propostas/list.html"})// listar		
+  
    //-------------Auditorias  --------------
    $routeProvider.when("/auditoriaavalia",       {controller : "avaliacaoController",templateUrl : "produtos/avaliacoes/auditoria.html"})// avaliacao
                  .when("/auditoriaorcamento",    {controller : "orcamentoController",templateUrl : "produtos/orcamentos/auditoria.html"}) //orcamento
@@ -155,6 +159,7 @@ $scope.imprimirAuditoriaAvalia = function() {
 	  }
 	 
   }
+  
   
   
 });

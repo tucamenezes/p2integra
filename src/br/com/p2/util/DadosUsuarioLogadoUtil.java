@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.p2.controller.UsuarioController;
 import br.com.p2.hibernate.HibernateUtilHQL;
+import br.com.p2.model.Contas;
 import br.com.p2.model.ContasApps;
 import br.com.p2.model.Usuarios;
 
@@ -44,5 +45,40 @@ public abstract class DadosUsuarioLogadoUtil {
 		return (Usuarios) lista.get(0);
 		
 	}  
+	
+	
+     
+	
+	
+    public static boolean contaAppValida(String idConta) throws Exception {
+		
+		String retorno;
+		
+		List<?> lista = HibernateUtilHQL.getListSqlHQL("from Contas as c where c.conta.id="+ idConta);
+		if (lista.isEmpty()) {
+			retorno ="N";
+		} else {
+			retorno ="S";
+		}
+			
+		return retorno =="S";
+			
+	}
+    
+   public static Contas buscarContaHash(String hashId) throws Exception {
+		
+		Contas retorno;
+		
+		List<?> lista = HibernateUtilHQL.getListSqlHQL("from Contas as c where c.conta.hashValidation="+ hashId);
+		if (lista.isEmpty()) {
+			retorno = null;
+		} else {
+			retorno = (Contas) lista.get(0);
+		}
+			
+		return retorno;
+			
+	}
+    
 
 }

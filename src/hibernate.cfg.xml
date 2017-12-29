@@ -32,16 +32,27 @@
         <mapping class="br.com.p2.model.Cidades" />
         <mapping class="br.com.p2.model.Contas" />
         <mapping class="br.com.p2.model.ContasApps" />
+        
         <mapping class="br.com.p2.model.veiculos.CorInterna" />
         <mapping class="br.com.p2.model.veiculos.CorExterna" />
         <mapping class="br.com.p2.model.veiculos.Produto" />
         <mapping class="br.com.p2.model.veiculos.Vendedor" />
         <mapping class="br.com.p2.model.veiculos.ClienteVeiculo" />
         <mapping class="br.com.p2.model.veiculos.Modelo" />
+        <mapping class="br.com.p2.model.veiculos.PropostaVeiculo" />
+        <mapping class="br.com.p2.model.veiculos.LogPropostaVeiculos" />
+        
         <mapping class="br.com.p2.model.avaliacao.Avaliacao" />
         <mapping class="br.com.p2.model.avaliacao.AvaliacaoImagens" />
+        
         <mapping class="br.com.p2.model.orcamento.Gestor" />
         <mapping class="br.com.p2.model.orcamento.Orcamento" />
+
+        
+        <!-- SMS -->
+        <mapping class="br.com.p2.SMS.model.MensagemSMS" />
+        <mapping class="br.com.p2.SMS.model.TipoCampanhaSMS" />
+          
    
         
                 

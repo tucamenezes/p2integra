@@ -29,6 +29,7 @@
     <script type="text/javascript" src="resources/js/controllers/indexController.js"></script> 
     <script type="text/javascript" src="resources/js/controllers/avaliacaoController.js"></script> 
     <script type="text/javascript" src="resources/js/controllers/orcamentoController.js"></script> 
+     <script type="text/javascript" src="resources/js/controllers/propostaController.js"></script> 
     <!-- Bootstrap 3.3.2 -->
      
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />  
@@ -64,7 +65,7 @@
   <body class="skin-blue" id="corpo">
   
   
-    <div class="wrapper" ng-init="buscarAcesso();buscarUsuarioLogado();" ng-controller="indexController"> 
+    <div class="wrapper" ng-init="buscarAcesso();buscarUsuarioLogado();getDadosQtdeServicos();" ng-controller="indexController"> 
       
       <header class="main-header">
         <!-- Logo -->
@@ -138,7 +139,7 @@
             </li>
             
              <li ng-show="verificarAcesso(9)">
-              <a href="pages/widgets.html">
+              <a href="#propostaslist">
                 <i class="fa fa-th"></i> <span>Descontos</span>
               </a>
             </li>

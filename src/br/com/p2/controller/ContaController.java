@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import br.com.p2.SMS.service.ReceberMensagemSMS;
 import br.com.p2.dao.DaoInterface;
 import br.com.p2.dao.DaoInterfaceImplements;
 import br.com.p2.hibernate.HibernateUtilHQL;
@@ -36,6 +37,10 @@ public class ContaController extends DaoInterfaceImplements<Contas> implements D
         if (status=="") {
            status="A";
         }
+        
+        String result = ReceberMensagemSMS.receberMensagemOnline();
+        
+        System.out.println(result);
         
 		return new Gson().toJson(HibernateUtilHQL.getListSqlHQL("from Contas as c where c		.status='" + status + "'"));
 			

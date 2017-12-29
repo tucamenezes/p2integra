@@ -100,6 +100,12 @@
 	       		<constructor-arg value="br.com.p2.model.avaliacao.AvaliacaoImagens"/>
 	     </bean>
 	     
+	   <!-- Gestao de Descontos -->  
+	    
+	    <bean id="propostaController" name="propostaController" class="br.com.p2.controller.PropostaController">
+	       		<constructor-arg value="br.com.p2.model.veiculos.PropostaVeiculo"/>
+	     </bean>
+	  
 	  <!-- Gestao de Orcamentos -->
      
 	     <bean id="orcamentoController" name="orcamentoController" class="br.com.p2.controller.OrcamentoController">
@@ -113,13 +119,23 @@
       
       <!-- Impressao de relatorios  -->
 
-         <bean id="fileDownloaderController" name="fileDownloaderController" class="br.com.p2.controller.FileDownloaderController">
-	       		
+         <bean id="fileDownloaderController" name="fileDownloaderController" class="br.com.p2.controller.FileDownloaderController">		
 	     </bean>   
 	     
-	       <bean id="reportUtil" name="reportUtil" class="br.com.p2.util.ReportUtil">
-	       		
-	     </bean>        
+	     <bean id="reportUtil" name="reportUtil" class="br.com.p2.util.ReportUtil">  		
+	     </bean>   
+	     
+	      <!-- SMS
+	        -->
+	      <bean id="smsController" name="smsController" class="br.com.p2.SMS.controller.SMSController">
+       		<constructor-arg value="br.com.p2.SMS.model.MensagemSMS"/>
+          </bean>     
+          
+    
+          <bean id="receberMensagemSMS" name="receberMensagemSMS" class="br.com.p2.SMS.service.ReceberMensagemSMS"></bean>
+          
+    
+
       
      
       

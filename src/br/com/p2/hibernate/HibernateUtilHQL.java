@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import br.com.p2.model.Contas;
 import br.com.p2.model.Usuarios;
 
 
@@ -24,6 +25,17 @@ public class HibernateUtilHQL implements Serializable {
 		List<?> lista = sessionFactory.getCurrentSession().createQuery(query.toString()).list();
 		
 		return lista;
+	}
+	
+	
+	public static String getUniqueSqlHQL(String sqlHQL)  throws Exception {
+
+		StringBuilder query = new StringBuilder();
+		//Monta a query generica 
+		query.append(sqlHQL);
+		String retorno  = (String) sessionFactory.getCurrentSession().createQuery(query.toString()).uniqueResult().toString();
+		
+		return retorno;
 	}
 	
 	
@@ -54,6 +66,21 @@ public class HibernateUtilHQL implements Serializable {
 		return usuario; 
 	}
 
+  
+   public static String getNumeroRegistros(String idConta, String status, String classeName) throws Exception {
+		
+	     StringBuilder sql = new StringBuilder();
+         sql.append("select count(*) from "+ classeName + " as a where conta.id = " + idConta);
+         if (status.equals("")) {
+            sql.append(" and a.status = '"+ status + "'");
+         }
+      	
+
+	    String retorno  = HibernateUtilHQL.getUniqueSqlHQL(sql.toString());
+	
+	 return retorno;
+	
+}  
   
     public static Usuarios getUsuarioByUsername(String username) throws Exception {
 		

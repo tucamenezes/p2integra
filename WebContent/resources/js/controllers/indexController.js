@@ -49,6 +49,49 @@ app.controller('indexController', function($scope,$http, $location, $routeParams
 	  return liberarAcesso;
 	  
   }
+  
+  
+  $scope.getNumeroPropostas = function() {
+		 
+		$http.get("propostas/qtdePendente").success(function(response) {
+			$scope.dataQtdePropostaPendente=response;	
+		}).error(function(response) {
+			console.log(response);
+		});
+		
+	  };
+	  
+  $scope.getNumeroOrcamentos = function() {
+			 
+			$http.get("orcamentos/qtdePendente").success(function(response) {
+				$scope.dataQtdeOrcamentoPendente=response;	
+			}).error(function(response) {
+				console.log(response);
+			});
+			
+   };
+   
+   $scope.getNumeroAvaliacoes = function() {
+		 
+		$http.get("avaliacoes/qtdePendente").success(function(response) {
+			$scope.dataQtdeAvaliacaoPendente=response;	
+		}).error(function(response) {
+			console.log(response);
+		});
+				
+		
+		
+	  };
+	  
+	  $scope.getDadosQtdeServicos = function() {
+			 
+		  $scope.getNumeroAvaliacoes();
+		  $scope.getNumeroOrcamentos();
+		  $scope.getNumeroPropostas();
+			
+			
+      };
+	  
 
 
 });

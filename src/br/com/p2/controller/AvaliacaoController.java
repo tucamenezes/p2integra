@@ -26,7 +26,7 @@ import br.com.p2.hibernate.HibernateUtilHQL;
 import br.com.p2.model.Usuarios;
 import br.com.p2.model.avaliacao.Avaliacao;
 import br.com.p2.util.DateDeserializer;
-import br.com.p2.util.DateUtils;
+
 
 
 
@@ -190,5 +190,24 @@ public class AvaliacaoController extends DaoInterfaceImplements<Avaliacao> imple
 				                                                + "'  and a.status in " + liberada);
 		
 	}
+   
+   
+    @RequestMapping(value="qtdePendente", method=RequestMethod.GET)
+	public @ResponseBody String qtde() throws Exception {
+		
+		String retorno="";
+		
+		Usuarios usuarioLogado = HibernateUtilHQL.buscaDadosUsuarioLogado();
+		
+		retorno = HibernateUtilHQL.getNumeroRegistros(usuarioLogado.getConta().getId().toString(), "A", Avaliacao.class.getName());
+		
+		if (retorno.equals("")) {
+			retorno = "0";
+		}
+		
+		return retorno;
+		
+	}
+	
 
 }

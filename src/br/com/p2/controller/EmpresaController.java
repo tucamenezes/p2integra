@@ -41,8 +41,11 @@ public class EmpresaController extends DaoInterfaceImplements<Empresas> implemen
         }
         
         Usuarios usuario = HibernateUtilHQL.buscaDadosUsuarioLogado();
+        //retirado por Arthur pois o cadastro de empresa deve ser acessado apenas pela P2 dentro do usuario Admin
+        //e o acesso deve ser a todas as empresas indenpendente da  conta
+        //return new Gson().toJson(HibernateUtilHQL.getListSqlHQL("from Empresas as a where a.conta.id = "+ usuario.getConta().getId() + " and a.status='" + status + "'"));
         
-        return new Gson().toJson(HibernateUtilHQL.getListSqlHQL("from Empresas as a where a.conta.id = "+ usuario.getConta().getId() + " and a.status='" + status + "'"));
+        return new Gson().toJson(HibernateUtilHQL.getListSqlHQL("from Empresas as a where a.status='" + status + "'"));
 			
 	}
 	
