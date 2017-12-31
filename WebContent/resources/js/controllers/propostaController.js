@@ -104,7 +104,7 @@ app.controller('propostaController', function($scope,$http, $location, $routePar
 });
 
 //listar documento pdf
-function imprimirPropostas() {
+function imprimirAuditoriaProposta() {
 	
 	
 	  var podeConsultar=true;
@@ -128,7 +128,7 @@ function imprimirPropostas() {
   if (podeConsultar) {
 	 // alert("imprimirAuditoria/orcamento?status="+idStatus+"&dataInicial="+dataInicial+"&dataFinal="+dataFinal);
 	  
-	    document.location.href="imprimirAuditoria/proposta?status="+idStatus+"&dataInicial="+dataInicial+"&dataFinal="+dataFinal;	
+	    document.location.href="imprimirAuditoria/desconto?status="+idStatus+"&dataInicial="+dataInicial+"&dataFinal="+dataFinal;	
   } else {
   	  alert("Defina todos os campos para busca!");
   }

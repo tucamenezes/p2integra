@@ -5,7 +5,7 @@
   <div class="container">
    
    <section class="content-header">
-      <h1>Lista de Orçamentos </h1>
+      <h1>Lista de Proposta de Veículos Novos </h1>
    </section>
     
      <div class="container" ng-init="listarPropostas();carregarVendedores();" ng-controller="propostaController">
@@ -98,10 +98,10 @@
 		                    <td>{{proposta.idPropostaNBS}}</td>
 		                    <td>{{proposta.cliente}}</td>
 		                    <td>{{proposta.veiculo}}</td>
-		                    <td>{{proposta.valorTabela}}</td>
-		                    <td>{{proposta.valorDesconto}}</td>
-		                    <td>{{proposta.valorNegociado}}</td>
-		                    <td>{{proposta.margem}}</td>
+		                    <td>{{proposta.valorTabela  | currency}}</td>
+		                    <td>{{proposta.valorDesconto | currency }}</td>
+		                    <td>{{proposta.valorNegociado  | currency}}</td>
+		                    <td>{{proposta.margem  | currency}}</td>
 		                    <td>{{proposta.vendedor.nome}}</td>
 		                    <td>{{proposta.dataLiberacao}}</td>
 		                    <td>{{proposta.liberador.nome}}</td>

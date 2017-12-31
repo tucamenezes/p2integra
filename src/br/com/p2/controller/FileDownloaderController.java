@@ -152,6 +152,59 @@ public class FileDownloaderController {
 		
 	}
 	
+	@RequestMapping(value="desconto", method=RequestMethod.GET)
+	public void downloadAuditoriaDesconto(HttpServletRequest request, HttpServletResponse response, @RequestParam("status") String status,
+			                              @RequestParam("dataInicial") String dataInicial, @RequestParam("dataFinal") String dataFinal) 
+			                              throws Exception {
+		
+	  //obtendo o caminho real da aplicacao
+		ServletContext context = request.getServletContext();
+		
+		HashMap parameters = new HashMap();
+		parameters.put("data_inicial",dataInicial);
+		parameters.put("data_final",dataFinal);
+	    parameters.put("status",status);
+	    parameters.put("conta",DadosUsuarioLogadoUtil.buscaDadosUsuarioLogado().getConta().getId().toString());
 	
+		
+		//pega o caminho do arquivo e monta o relatorio
+		filePath = reportUtil.gerarRelatorio (null, parameters, "auditoriaDescontos", "auditoriaDescontos", context);
+		
+      
+	   //constrindo o caminho completo do arquivo
+		File downloadFile = new File(filePath);
+		FileInputStream inputStream = new FileInputStream(downloadFile);
+		
+		//obter o tipo MIME do arquivo
+		String mimeType = context.getMimeType(filePath);
+		if (mimeType==null) {
+			//definindo como tipo binario de mapeamento MIME não encontrado
+			mimeType = "application/octet-stream";
+		}
+		
+		//definir atributos de conteudos para a resposta
+		response.setContentType(mimeType);
+		response.setContentLength((int) downloadFile.length());
+		
+		//definir cabeclho para resposta
+		String headKey = "Content-Disposition";
+		String headValue = String.format("attachment;filename=\"%s\"", downloadFile.getName());
+		response.setHeader(headKey,headValue);
+		
+		//obter fluxo de saida da resposta
+		OutputStream outStream = response.getOutputStream();
+		
+		byte[] buffer = new byte [BUFFER_SIZE];
+		int bytesRead = -1;
+		
+		//escrever os bytes lidos a partir do fluxo de entrada para o fluxo de saida
+		while ((bytesRead = inputStream.read(buffer))!=-1) {
+			outStream.write(buffer, 0 , bytesRead);
+		}
+		
+		inputStream.close();
+		outStream.close();
+		
+	}
 
 }
