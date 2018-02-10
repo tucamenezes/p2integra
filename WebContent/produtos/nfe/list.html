@@ -1,0 +1,179 @@
+<html ng-app="p2app">
+
+  <head> </head>
+  
+  <div class="container">
+   
+   <section class="content-header">
+      <h1>Listar NFE </h1>
+   </section>
+    
+     <div class="container" ng-init="carregarFornecedores(); carregarEmpresas();" ng-controller="nfeController">
+         
+		          <div class="container">
+		              <br>
+		              
+  
+		        <!-- Main content -->
+		        <section class="content" >
+		          <div class="row">
+		            <div class="col-md-6">
+		
+		              <div class="box box-danger">
+		              
+		              <div class="box-body">
+		                 <div class="form-group">   
+		                    <label>Empresa : </label>
+		                    <select ng-model="empresaSelecionada" >
+		                        <option ng-repeat="x in dataEmpresas | orderBy:'nome'" value="{{x.id}}">{{x.nome}}</option>
+		                    </select>
+ 						 </div>
+ 						 
+ 						 <div class="form-group">
+		                    <label>Fornecedor : </label>
+		                    <select ng-model="fornecedorSelecionado" >
+		                        <option ng-repeat="x in dataFornecedores | orderBy:'nome'" value="{{x.id}}">{{x.nome}}</option>
+		                    </select>
+		                </div>
+		                
+		                <div class="box-body">
+		                  <!-- Date dd/mm/yyyy -->
+		                  <div class="form-group">
+		                    <label>Datas - Inicial e Final:</label>
+		                    <div class="input-group">
+		                      <div class="input-group-addon">
+		                        <i class="fa fa-calendar"></i>
+		                      </div>
+		                      <input type="text" id="dataInicial" ng-model="dataInicial"  name="dataInicial" class="form-control"  data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+		                    </div><!-- /.input group -->
+		                  </div><!-- /.form group -->
+		
+		                  <!-- Date mm/dd/yyyy -->
+		                  <div class="form-group">
+		                    <div class="input-group">
+		                      <div class="input-group-addon">
+		                        <i class="fa fa-calendar"></i>
+		                      </div>
+		                      <input type="text" id="dataFinal" ng-model="dataFinal" name="dataFinal" class="form-control"  data-inputmask="'alias': 'dd/mm/yyyy'" data-mask/>
+		                    </div><!-- /.input group -->
+		                  </div><!-- /.form group -->
+
+		                  <button class="btn btn-block btn-primary" ng-click="listarNfe(fornecedorSelecionado)" id="btnAtualizar">Atualizar</button>
+		                  
+		                </div><!-- /.box-body -->
+		              </div><!-- /.box -->
+		
+		
+		            </div><!-- /.col (left) -->
+		
+		
+		        </section><!-- /.content -->
+		                
+		                 
+		              <!--  -->   
+		                 
+		       
+		          
+		          <div class="container">
+		
+		               <table class="table table-striped table-hover">
+		                 <th>Selec.</th>
+		                 <th>Id NFE</th>
+		                 <th>Número NFE</th>
+		                 <th>Fornecedor</th>
+		                 <th>Download</th>
+		                 <tr ng-repeat="nfe2 in data | filter:fornecedorSelecionado | orderBy:'id'" ng-click="selecionaNfe(nfe2)">
+		                    <td><input type="checkbox" id="nfes" name="nfes" value="{{nfe2.id}}"></td>
+		                    <td>{{nfe2.id}}</td>
+		                    <td>{{nfe2.idNfeExterno}}</td>
+		                    <td>{{nfe2.fornecedor.nome}}</td>
+		                    <td><a href="nfe/downloadxml?idNfe={{nfe2.id}}">baixar</td>
+		                    
+		                 </tr>
+		               </table>
+		
+		               
+		
+		           </div>
+		           <div class="col-md-2">
+		              <input type="hidden" id="idNfeCons" nome="idNfeCons" ng-model="nfe.id">
+		              <button ng-disabled="!nfe.id" class="btn btn-block btn-primary" onclick="downloadNFE()" id="btnLiberar">Download</button> 
+		           </div>
+		
+		
+		
+		     
+		
+		      
+		   
+		
+		    </div><!-- ./wrapper -->
+		   </div>
+     </div>
+      
+  <!-- jQuery 2.1.3 -->
+    <script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>
+  
+    <!-- InputMask -->
+    <script src="plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
+    <script src="plugins/input-mask/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
+    <script src="plugins/input-mask/jquery.inputmask.extensions.js" type="text/javascript"></script>
+    <!-- date-range-picker -->
+    <script src="plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+    <!-- iCheck 1.0.1 -->
+    <script src="plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+    <!-- bootstrap color picker -->
+    <script src="plugins/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
+    <!-- bootstrap time picker -->
+    <script src="plugins/timepicker/bootstrap-timepicker.min.js" type="text/javascript"></script>
+ 
+  <!-- Page script -->
+    <script language="javascript">
+    
+      $(function () {
+        //Datemask dd/mm/yyyy
+        $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+        //Datemask2 mm/dd/yyyy
+        $("#datemask2").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+        //Money Euro
+        $("[data-mask]").inputmask();
+        //Date range picker
+        $('#reservation').daterangepicker();
+        //Date range picker with time picker
+        $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+        //Date range as a button
+        $('#daterange-btn').daterangepicker(
+                {
+                  ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                    'Last 7 Days': [moment().subtract('days', 6), moment()],
+                    'Last 30 Days': [moment().subtract('days', 29), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                  },
+                  startDate: moment().subtract('days', 29),
+                  endDate: moment()
+                },
+        function (start, end) {
+          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+        );
+
+       
+       
+
+        //Colorpicker
+        $(".my-colorpicker1").colorpicker();
+        //color picker with addon
+        $(".my-colorpicker2").colorpicker();
+
+        //Timepicker
+        $(".timepicker").timepicker({
+          showInputs: false
+        });
+      });
+    </script>
+    
+    
+</html>

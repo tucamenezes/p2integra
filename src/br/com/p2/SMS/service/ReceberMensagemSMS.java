@@ -29,7 +29,7 @@ public abstract class ReceberMensagemSMS {
 			
 		  RestTemplate restTemplate = new RestTemplate(new SimpleClientHttpRequestWithGetBodyFactory());
 		  
-		  HttpHeaders headers = createHeaders("p2tecnologia","p2tec00");
+		  HttpHeaders headers = createHeaders("p2tecnologia","aWZZrQQiOa");
 		  headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		  
 		  HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);

@@ -36,7 +36,7 @@ public class EmpresaController extends DaoInterfaceImplements<Empresas> implemen
 	@ResponseBody
 	public String listarEmpresas(@PathVariable("status") String status) throws Exception {
 	
-        if (status=="") {
+        if (status.equals("")) {
            status="A";
         }
         
@@ -46,6 +46,22 @@ public class EmpresaController extends DaoInterfaceImplements<Empresas> implemen
         //return new Gson().toJson(HibernateUtilHQL.getListSqlHQL("from Empresas as a where a.conta.id = "+ usuario.getConta().getId() + " and a.status='" + status + "'"));
         
         return new Gson().toJson(HibernateUtilHQL.getListSqlHQL("from Empresas as a where a.status='" + status + "'"));
+			
+	}
+	
+	
+	@RequestMapping(value="listarempresas", method=RequestMethod.GET,headers="Accept=application/json")
+	@ResponseBody
+	public String listarEmpresasdoUsuario() throws Exception {
+	   
+		String status = "A";
+        
+        
+        Usuarios usuario = HibernateUtilHQL.buscaDadosUsuarioLogado();
+       //listar a empresas dos usuarios para busca e filtros
+       
+        return new Gson().toJson(HibernateUtilHQL.getListSqlHQL("from Empresas as a where a.conta.id = "+ usuario.getConta().getId() + " and a.status='" + status + "'"));
+        
 			
 	}
 	

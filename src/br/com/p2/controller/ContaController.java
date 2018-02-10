@@ -38,11 +38,11 @@ public class ContaController extends DaoInterfaceImplements<Contas> implements D
            status="A";
         }
         
-        String result = ReceberMensagemSMS.receberMensagemOnline();
+      //  String result = ReceberMensagemSMS.receberMensagemOnline();
         
-        System.out.println(result);
+       // System.out.println(result);
         
-		return new Gson().toJson(HibernateUtilHQL.getListSqlHQL("from Contas as c where c		.status='" + status + "'"));
+		return new Gson().toJson(HibernateUtilHQL.getListSqlHQL("from Contas as c where c.status='" + status + "'"));
 			
 	}
 	

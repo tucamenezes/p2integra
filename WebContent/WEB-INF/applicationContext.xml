@@ -134,6 +134,12 @@
     
           <bean id="receberMensagemSMS" name="receberMensagemSMS" class="br.com.p2.SMS.service.ReceberMensagemSMS"></bean>
           
+          
+          <!-- CANAL  -->
+
+         <bean id="nfeController" name="nfeController" class="br.com.p2.canal.controller.NfeController">	
+            <constructor-arg value="br.com.p2.canal.model.NFE"/>	
+	     </bean>   
     
 
       

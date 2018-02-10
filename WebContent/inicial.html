@@ -29,7 +29,10 @@
     <script type="text/javascript" src="resources/js/controllers/indexController.js"></script> 
     <script type="text/javascript" src="resources/js/controllers/avaliacaoController.js"></script> 
     <script type="text/javascript" src="resources/js/controllers/orcamentoController.js"></script> 
-     <script type="text/javascript" src="resources/js/controllers/propostaController.js"></script> 
+    <script type="text/javascript" src="resources/js/controllers/propostaController.js"></script> 
+    <script type="text/javascript" src="resources/js/controllers/nfeController.js"></script> 
+    
+    
     <!-- Bootstrap 3.3.2 -->
      
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />  
@@ -147,6 +150,12 @@
              <li ng-show="verificarAcesso(10)">
               <a href="#avaliacaolist">
                 <i class="fa fa-laptop"></i> <span>Avaliações</span>
+              </a>
+            </li>
+            
+            <li ng-show="verificarAcesso(10)">
+              <a href="#nfelist">
+                <i class="fa fa-laptop"></i> <span>Consulta de NFE</span>
               </a>
             </li>
             

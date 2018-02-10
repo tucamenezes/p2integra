@@ -54,7 +54,10 @@
         <mapping class="br.com.p2.SMS.model.TipoCampanhaSMS" />
           
    
-        
+         <!-- Canal -->
+        <mapping class="br.com.p2.canal.model.Fornecedor" />
+        <mapping class="br.com.p2.canal.model.NFE" />
+          
                 
        		
 	</session-factory>

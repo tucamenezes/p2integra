@@ -54,6 +54,11 @@ app.config(['$routeProvider', function($routeProvider,$provide, $httpProvide, $l
    $routeProvider.when("/auditoriaavalia",       {controller : "avaliacaoController",templateUrl : "produtos/avaliacoes/auditoria.html"})// avaliacao
                  .when("/auditoriaorcamento",    {controller : "orcamentoController",templateUrl : "produtos/orcamentos/auditoria.html"}) //orcamento
 			    .when("/auditoriadesconto",      {controller : "propostaController",templateUrl : "produtos/propostas/auditoria.html"})// novo	
+			    
+  //-------------Canal --------------
+   
+   $routeProvider.when("/nfelist",      {controller : "nfeController",templateUrl : "produtos/nfe/list.html"})// listar		
+  			    
 			  	    
 	      .otherwise({redirectTo: "/"});
 }]);
