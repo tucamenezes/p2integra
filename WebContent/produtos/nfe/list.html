@@ -58,7 +58,7 @@
 		                    </div><!-- /.input group -->
 		                  </div><!-- /.form group -->
 
-		                  <button class="btn btn-block btn-primary" ng-click="listarNfe(fornecedorSelecionado)" id="btnAtualizar">Atualizar</button>
+		                  <button class="btn btn-block btn-primary" ng-click="listarNfe(fornecedorSelecionado, empresaSelecionada)" id="btnAtualizar">Atualizar</button>
 		                  
 		                </div><!-- /.box-body -->
 		              </div><!-- /.box -->
@@ -78,20 +78,19 @@
 		
 		               <table class="table table-striped table-hover">
 		                 <th>Selec.</th>
-		                 <th>Id NFE</th>
+		                 <th>Empresa</th>
+		                 <th>Id. NFE</th>
 		                 <th>Número NFE</th>
-		                 <th>Fornecedor</th>
-		                 <th>Download</th>
-		                 <tr ng-repeat="nfe2 in data | filter:fornecedorSelecionado | orderBy:'id'" ng-click="selecionaNfe(nfe2)">
+		                 <th>Download</th> 
+		                 <tr ng-repeat="nfe2 in data | orderBy:'id'" ng-click="selecionaNfe(nfe2)">
 		                    <td><input type="checkbox" id="nfes" name="nfes" value="{{nfe2.id}}"></td>
+		                    <td>{{nfe2.nomeEmpresa}}</td>
 		                    <td>{{nfe2.id}}</td>
-		                    <td>{{nfe2.idNfeExterno}}</td>
-		                    <td>{{nfe2.fornecedor.nome}}</td>
+		                    <td>{{nfe2.idNfeExterno}}</td>	
 		                    <td><a href="nfe/downloadxml?idNfe={{nfe2.id}}">baixar</td>
-		                    
 		                 </tr>
 		               </table>
-		
+		    
 		               
 		
 		           </div>

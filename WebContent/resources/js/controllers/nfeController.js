@@ -14,7 +14,7 @@ app.controller('nfeController', function($scope,$http, $location, $routeParams) 
 	
 
   //listar todos
-  $scope.listarNfe = function(idFornecedor) {
+  $scope.listarNfe = function(idFornecedor, idEmpresa) {
 	  
 	  //alert(idFornecedor);
 	 var podeConsultar=true;
@@ -25,6 +25,10 @@ app.controller('nfeController', function($scope,$http, $location, $routeParams) 
 	 
 	 if (idFornecedor === null ||idFornecedor === undefined || idFornecedor ===''){
 		 idFornecedor='0';
+	  }
+	 
+	 if (idEmpresa === null ||idEmpresa === undefined || idEmpresa ===''){
+		 idEmpresa='0';
 	  }
     	
 	 if (dataInicial === null ||dataInicial === undefined || dataInicial ===''){
@@ -37,8 +41,9 @@ app.controller('nfeController', function($scope,$http, $location, $routeParams) 
   
     if (podeConsultar) {
 	    //http://localhost:8080/spring-rest/ex/bars?id=100&second=something
-		$http.get("nfe/listar?idFornecedor="+idFornecedor+"&dataInicial="+dataInicial+"&dataFinal="+dataFinal).success(function(response) {
-			$scope.data=response;	
+		$http.get("nfe/listar?idFornecedor="+idFornecedor+"&dataInicial="+dataInicial+"&dataFinal="+dataFinal+"&idEmpresa="+idEmpresa).success(function(response) {
+			$scope.data=response;
+			console.log($scope.data)
 		}).error(function(response) {
 			console.log(response);
 		});

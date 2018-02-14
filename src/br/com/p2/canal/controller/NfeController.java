@@ -27,6 +27,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import br.com.p2.canal.model.NFE;
+import br.com.p2.canal.vo.VONFE;
 import br.com.p2.dao.DaoInterface;
 import br.com.p2.dao.DaoInterfaceImplements;
 import br.com.p2.hibernate.HibernateUtilHQL;
@@ -58,13 +59,15 @@ public class NfeController extends DaoInterfaceImplements<NFE> implements DaoInt
    
    @RequestMapping(value="listar", method=RequestMethod.GET,headers="Accept=application/json")
    @ResponseBody
-   public String listar(@RequestParam("idFornecedor") String idFornecedor, @RequestParam("dataInicial") String dataInicial, @RequestParam("dataFinal") String dataFinal) throws Exception {
+   public String listar(@RequestParam("idFornecedor") String idFornecedor, @RequestParam("idEmpresa") String idEmpresa,
+		                @RequestParam("dataInicial") String dataInicial, @RequestParam("dataFinal") String dataFinal) throws Exception {
 		
 		SimpleDateFormat df = new SimpleDateFormat( "dd/MM/yyyy" ); 
 		Date dtAux = new Date();
      	Calendar cadAux = Calendar.getInstance();
-     	String vSqlComplementar=""; 
-     	
+     	String vSql=""; 
+     	Usuarios usuarioLogado = HibernateUtilHQL.buscaDadosUsuarioLogado();
+     	List<NFE> listRetorno =  new ArrayList<>();
 		
 		if (dataInicial=="") {
 			dtAux = Calendar.getInstance().getTime();
@@ -77,19 +80,41 @@ public class NfeController extends DaoInterfaceImplements<NFE> implements DaoInt
 			dataFinal= df.format(dtAux);
 		}
 		
-		if (idFornecedor.equals("0")){
-			vSqlComplementar= "";
-	        } else {
-	          	vSqlComplementar= " and fornecedor.id = " + idFornecedor;
-	        }
-	
 		
-       Usuarios usuarioLogado = HibernateUtilHQL.buscaDadosUsuarioLogado();
-
-       
-		return new Gson().toJson(HibernateUtilHQL.getListSqlHQL("from NFE as a where a.conta.id = " + usuarioLogado.getConta().getId() + 
-				                                                " and a.data>= '"+ dataInicial + "' and a.data<= '"+ dataFinal 
-				                                                + "' " + vSqlComplementar));
+		String vSqlEmpresa ="";
+		
+		if (idFornecedor.equals("0")){
+			vSql= "select a.id, a.id_nfe_externo, e.nome from canal_nfe_xml a, empresas e where a.id_empresa = e.id and a.id_conta = " + usuarioLogado.getConta().getId() + 
+                    " and a.data>= '"+ dataInicial + "' and a.data<= '"+ dataFinal  + "' ";
+	        } else {
+	          	vSql= "select a.id, a.id_nfe_externo, e.nome from canal_nfe_xml a, canal_fornecedores_nfe b, empresas e where a.id = b.id_nfe and a.id_empresa = e.id and b.id_fornecedor = " + idFornecedor  + " and a.id_conta = " + usuarioLogado.getConta().getId() + 
+	                    " and a.data>= '"+ dataInicial + "' and a.data<= '"+ dataFinal  + "' ";
+	        }
+		
+		if (idEmpresa.equals("0")){
+			vSqlEmpresa= "";
+	        } else {
+	          	vSqlEmpresa= " and a.id_empresa = " + idEmpresa;
+	        }
+		
+		
+		vSql = vSql + vSqlEmpresa;
+		
+		System.out.println(vSql);
+		
+		List<?> listAux =  HibernateUtilHQL.getListSqlDinamico(vSql);
+		
+		for (int i=0; i< listAux.size(); i++ ) {
+			NFE nfe = new NFE();
+			Object[] obj = (Object[]) listAux.get(i);
+			nfe.setId(Long.parseLong(obj[0].toString()));
+			nfe.setIdNfeExterno(Integer.parseInt(obj[1].toString()));
+			nfe.setNomeEmpresa(obj[2].toString());
+			listRetorno.add(nfe);
+			
+		}
+		
+      	return new Gson().toJson(listRetorno);
 		
 	}
    
@@ -110,21 +135,28 @@ public class NfeController extends DaoInterfaceImplements<NFE> implements DaoInt
     @SuppressWarnings("rawtypes")
 	@RequestMapping(value="salvar", method=RequestMethod.POST,headers="Accept=application/json")
 	@ResponseBody
-	public ResponseEntity salvarApp(@RequestBody String jSonApp) throws Exception {
-		
-		
-		//Definir no Gson o novo deseserializar para que possa trabalhat com as datas
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
-				
-		Gson gson = gsonBuilder.create();
+	public Integer salvarApp(@RequestBody String jSonApp) throws Exception {
+	
+      System.out.println(jSonApp);	
+    	  Integer vRetorno = 0;
+		try {
+			//Definir no Gson o novo deseserializar para que possa trabalhat com as datas
+			GsonBuilder gsonBuilder = new GsonBuilder();
+			gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
+					
+			Gson gson = gsonBuilder.create();
 
-		NFE nfe = gson.fromJson(jSonApp, NFE.class);
+			NFE nfe = gson.fromJson(jSonApp, NFE.class);
+			
+			
+		    super.salvarAtualizar(nfe);
+		    
+		} catch (Exception e) {
+			vRetorno = -99;
+		}
 		
-		
-	    super.salvarAtualizar(nfe);
 
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		return vRetorno;
 			
 	}
     

@@ -2,20 +2,29 @@ package br.com.p2.canal.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.CollectionOfElements;
+import org.hibernate.annotations.IndexColumn;
+
 import br.com.p2.model.Contas;
+import br.com.p2.model.Empresas;
 
 @Entity
 @Table(name="canal_nfe_xml") //indica o nome da tablea
@@ -36,24 +45,38 @@ public class NFE implements Serializable {
 	private Integer idNfeExterno;
 	
 	@ManyToOne()
-	@JoinColumn(name="id_fornecedor", referencedColumnName="id")
-	private Fornecedor fornecedor;
+	@JoinColumn(name="id_empresa",referencedColumnName="id")
+	private Empresas empresa;
+	
+	@ManyToMany
+    @JoinTable(name="canal_fornecedores_nfe", joinColumns=
+    {@JoinColumn(name="id_nfe")}, inverseJoinColumns=
+      {@JoinColumn(name="id_fornecedor")})
+	private List<Fornecedor> fornecedores;
 	
 	@Column(name="data") //define o nome da coluna, tamanho e se pode ser null
 	@Temporal(TemporalType.DATE) // para considerar apenas a data.
 	private Date data;
 	
+	@Column(name="nome_empresa", length=100) 
+	private String nomeEmpresa;
+	
 	@Column(name="nfe_xml", columnDefinition="text")
 	private String nfeXml;
+	
+	
 
-	public NFE(Long id, Contas conta, Integer idNfeExterno, Fornecedor fornecedor, Date data, String nfeXml) {
+	public NFE(Long id, Contas conta, Integer idNfeExterno, Empresas empresa, List<Fornecedor> fornecedores, Date data, String nomeEmpresa, String nfeXml) {
 		super();
 		this.id = id;
 		this.conta = conta;
 		this.idNfeExterno = idNfeExterno;
-		this.fornecedor = fornecedor;
+		this.empresa = empresa;
+		this.fornecedores = fornecedores;
 		this.data = data;
+		this.nomeEmpresa = nomeEmpresa;
 		this.nfeXml = nfeXml;
+		
 	}
 	
 	
@@ -119,13 +142,13 @@ public class NFE implements Serializable {
 	}
 
 
-	public Fornecedor getFornecedor() {
-		return fornecedor;
+	public List<Fornecedor> getFornecedor() {
+		return fornecedores;
 	}
 
 
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
+	public void setFornecedor(List<Fornecedor> fornecedores) {
+		this.fornecedores = fornecedores;
 	}
 	
 	public Date getData() {
@@ -147,6 +170,22 @@ public class NFE implements Serializable {
 	}
 	
 	
+	public Empresas getEmpresa() {
+		return empresa;
+	}
+	
+	public void setEmpresa(Empresas empresa) {
+		this.empresa = empresa;
+	}
+	
+	
+	public String getNomeEmpresa() {
+		return nomeEmpresa;
+	}
+	
+	public void setNomeEmpresa(String nomeEmpresa) {
+		this.nomeEmpresa = nomeEmpresa;
+	}
 
 	
 	

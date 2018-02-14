@@ -19,6 +19,8 @@
 		<intercept-url pattern="/restrito/**"  access="isAuthenticated() and hasAnyRole('ADMIN') or hasAnyRole('USER')"/>
 		<intercept-url pattern="/produtos/**"  access="isAuthenticated() and hasAnyRole('ADMIN') or hasAnyRole('USER')"/>
 		<intercept-url pattern="/inicial.html" access="isAuthenticated() and hasAnyRole('ADMIN') or hasAnyRole('USER')"/>
+		
+	
 	
 	
 		
