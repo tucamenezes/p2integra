@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import org.apache.poi.hssf.record.formula.functions.Replace;
+
 public class XMLUtils implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -25,7 +27,7 @@ public class XMLUtils implements Serializable{
 			arquivo.write(textoXml);
 			arquivo.close();
 			
-		
+		 
 
 		return nomeArquivo;
 	}

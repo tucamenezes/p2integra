@@ -21,6 +21,7 @@
 
 	<context:component-scan base-package="br.com.p2.dao" />
 	<context:component-scan base-package="br.com.p2.controller" />
+	<context:component-scan base-package="br.com.p2.canal.controller" /> 
 
 
 

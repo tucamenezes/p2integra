@@ -44,7 +44,7 @@ public class AppController extends DaoInterfaceImplements<App> implements DaoInt
 	
 	
 	@SuppressWarnings("rawtypes")
-	@RequestMapping(value="salvar", method=RequestMethod.POST,headers="Accept=application/json")
+	@RequestMapping(value="salvar", method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity salvarApp(@RequestBody String jSonApp) throws Exception {
 		

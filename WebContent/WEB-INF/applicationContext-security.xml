@@ -13,6 +13,7 @@
 		use-expressions="true">
 
 		<intercept-url pattern="/publico/**"  access="permitAll" /> 
+		<intercept-url pattern="/canal/**"    access="permitAll" /> 
 
 		<intercept-url pattern="/app/**"       access="isAuthenticated() and hasAnyRole('ADMIN')"/>
 		<intercept-url pattern="/p2/**"        access="isAuthenticated() and hasAnyRole('ADMIN')"/>

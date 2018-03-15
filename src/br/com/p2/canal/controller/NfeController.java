@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import br.com.p2.canal.model.Fornecedor;
 import br.com.p2.canal.model.NFE;
 import br.com.p2.canal.vo.VONFE;
 import br.com.p2.dao.DaoInterface;
@@ -119,6 +120,8 @@ public class NfeController extends DaoInterfaceImplements<NFE> implements DaoInt
 	}
    
    
+   
+   
    @RequestMapping(value="listarFornecedores", method=RequestMethod.GET,headers="Accept=application/json")
    @ResponseBody
    public String listarFornecedores() throws Exception {
@@ -133,32 +136,41 @@ public class NfeController extends DaoInterfaceImplements<NFE> implements DaoInt
    
    
     @SuppressWarnings("rawtypes")
-	@RequestMapping(value="salvar", method=RequestMethod.POST,headers="Accept=application/json")
-	@ResponseBody
-	public Integer salvarApp(@RequestBody String jSonApp) throws Exception {
+	@RequestMapping(value="salvar", method=RequestMethod.POST)
+	public @ResponseBody String salvarApp(@RequestBody  String jSonApp) throws Exception {
 	
-      System.out.println(jSonApp);	
-    	  Integer vRetorno = 0;
-		try {
+      //System.out.println(jSonApp);	
+    	  String vRetorno = "0";
+	try {
 			//Definir no Gson o novo deseserializar para que possa trabalhat com as datas
 			GsonBuilder gsonBuilder = new GsonBuilder();
-			gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
-					
 			Gson gson = gsonBuilder.create();
 
 			NFE nfe = gson.fromJson(jSonApp, NFE.class);
+			
+			System.out.println("Fornecedores : " + nfe.getFornecedores().get(0).getNome());
+			System.out.println("Fornecedores : " + nfe.getDataSaida());
 			
 			
 		    super.salvarAtualizar(nfe);
 		    
 		} catch (Exception e) {
-			vRetorno = -99;
+			vRetorno = "-99 - " + e.getMessage() ;
 		}
 		
 
 		return vRetorno;
 			
 	}
+    
+    
+    private boolean isFornecedorExiste (Fornecedor fornecedor) throws Exception {
+    	
+		Fornecedor retorno =  (Fornecedor) HibernateUtilHQL.getListSqlHQL("from Fornecedor f where f.id= " + fornecedor.getId()).get(0);
+    	
+    	return retorno!=null;
+    	
+    }
     
     @RequestMapping(value="downloadxml", method=RequestMethod.GET)
 	public void downloadXML(HttpServletRequest request, HttpServletResponse response, @RequestParam("idNfe") String idNfe) 
@@ -187,7 +199,7 @@ public class NfeController extends DaoInterfaceImplements<NFE> implements DaoInt
 		
 	    String filePath = arquivoZip.getName();
 		      
-	   //constrindo o caminho completo do arquivo
+	   //constrindo o caminho completo do arquivo 
 		File downloadFile = new File(filePath);
 		FileInputStream inputStream = new FileInputStream(downloadFile);
 		
