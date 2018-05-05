@@ -20,7 +20,7 @@
                 antiResourceLocking="false"
 				username="postgres" 
 				password="super" 
-				url="jdbc:postgresql://192.168.0.193:5432/p2db?autoReconnect=true"/>
+				url="jdbc:postgresql://localhost:5432/p2db?autoReconnect=true"/>
 				
 	<!-- url="jdbc:postgresql://192.168.0.193:5432/p2db?autoReconnect=true"/>
 	http://tomee.apache.org/datasource-config.html -->	

@@ -50,9 +50,7 @@ app.controller('nfeController', function($scope,$http, $location, $routeParams) 
     } else {
     	  alert("Defina todos os campos para busca!");
     }
-    	
-			
-			
+		
   };
   
   
@@ -71,7 +69,7 @@ app.controller('nfeController', function($scope,$http, $location, $routeParams) 
   //listar todos
   $scope.carregarEmpresas = function() {
 	   
-		$http.get("empresas/listarempresas").success(function(response) {
+		$http.get("nfe/listarempresas").success(function(response) {
 			$scope.dataEmpresas=response;	
 		}).error(function(response) {
 			console.log(response);
@@ -89,21 +87,33 @@ function downloadNFE() {
 	 var id = 0;
 	 var listaNfe = document.getElementsByName("nfes");
 	 
+		  
+	 
 	 for (var i = 0; i < listaNfe.length; i++){
-          if (listaNfe[i].checked) {
-        	     id=listaNfe[i].value;
+         if (listaNfe[i].checked) {
+             id=listaNfe[i].value;
              listaDownload.push(id);
-          }
-	 }
-	 // alert("nfe/download?idnfe="+idNfe);
-	   console.log(listaDownload);
-	  
-	    //document.location.href="nfe/downloadxml?idNfe=1";	
-	   
-	 document.location.href="nfe/downloadxml?idNfe="+listaDownload;	
- 
-  	
+         }
+	  }
+	    
+        if (listaDownload.length == 0) { 
+  	        alert("Selecione ao menos um registro Download!");
+   	    } else {	
+            document.location.href="nfe/downloadxml?idNfe="+listaDownload;	
+	    }
 			
 			
 };
+
+function marcardesmarcar(){
+    $(".nfes").each(
+        function() {
+            if ($(this).prop("checked")) {
+                $(this).prop("checked", false);
+            } else {
+                $(this).prop("checked", true);
+            }
+        
+    });
+}
 

@@ -141,6 +141,10 @@
          <bean id="nfeController" name="nfeController" class="br.com.p2.canal.controller.NfeController">	
             <constructor-arg value="br.com.p2.canal.model.NFE"/>	
 	     </bean>   
+	     
+	      <bean id="fornecedorController" name="fornecedorController" class="br.com.p2.canal.controller.FornecedorController">	
+            <constructor-arg value="br.com.p2.canal.model.Fornecedor"/>	
+	     </bean>   
     
 
       

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,16 +39,18 @@ public class NFE implements Serializable {
 	private Contas conta	;
 	
 	@Column(name="id_nfe_externo")   
-	private Integer idNfeExterno;
+	private Integer numeroNota;
+	
+	@Column(name="serie_nota")   
+	private String serieNota; 
 	
 	@Column(name="id_transacao")   
-	private Integer idTransacao;
+	private Integer transacaoVenda;
 	
-	@ManyToOne()
-	@JoinColumn(name="id_empresa",referencedColumnName="id")
-	private Empresas empresa;
+	@Column(name="id_empresa")   
+	private Integer idEmpresa;
 	
-	@ManyToMany 
+	@ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name="canal_fornecedores_nfe", joinColumns= {@JoinColumn(name="id_nfe")}, 
                inverseJoinColumns= {@JoinColumn(name="id_fornecedor")})
 	private List<Fornecedor> fornecedores;
@@ -59,22 +62,27 @@ public class NFE implements Serializable {
 	@Column(name="nome_empresa", length=100) 
 	private String nomeEmpresa;
 	
+	@Column(name="chave_nfe", length=255) 
+	private String chaveNFE;
+	
 	@Column(name="nfe_xml", columnDefinition="text")
-	private String nfeXml;
+	private String xmlNFE;
 	
 	
 
-	public NFE(Long id, Contas conta, Integer idNfeExterno, Integer idTransacao, Empresas empresa, List<Fornecedor> fornecedores, Date dataSaida, String nomeEmpresa, String nfeXml) {
+	public NFE(Long id, Contas conta, Integer numeroNota, String serieNota ,Integer transacaoVenda, Integer idEmpresa, List<Fornecedor> fornecedores, Date dataSaida, String nomeEmpresa, String chaveNFE, String xmlNFE) {
 		super();
 		this.id = id;
 		this.conta = conta;
-		this.idNfeExterno = idNfeExterno;
-		this.idTransacao = idTransacao;
-		this.empresa = empresa;
+		this.numeroNota = numeroNota;
+		this.serieNota = serieNota;
+		this.transacaoVenda = transacaoVenda;
+		this.idEmpresa = idEmpresa;
 		this.fornecedores = fornecedores;
 		this.dataSaida = dataSaida;
 		this.nomeEmpresa = nomeEmpresa;
-		this.nfeXml = nfeXml;
+		this.chaveNFE = chaveNFE;
+		this.xmlNFE = xmlNFE;
 		
 	}
 	
@@ -131,25 +139,6 @@ public class NFE implements Serializable {
 	}
 
 
-	public Integer getIdNfeExterno() {
-		return idNfeExterno;
-	}
-
-
-	public void setIdNfeExterno(Integer idNfeExterno) {
-		this.idNfeExterno = idNfeExterno;
-	}
-
-
-	public Integer getIdTransacao() {
-		return idTransacao;
-	}
-
-
-	public void setIdTransacao(Integer idTransacao) {
-		this.idTransacao = idTransacao;
-	}
-
 
 	public List<Fornecedor> getFornecedores() {
 		return fornecedores;
@@ -168,33 +157,74 @@ public class NFE implements Serializable {
 	public void setDataSaida(Date dataSaida) {
 		this.dataSaida = dataSaida;
 	}
+	
 
-
-	public String getNfeXml() {
-		return nfeXml;
+	public Integer getIdEmpresa() {
+		return idEmpresa;
 	}
 
 
-	public void setNfeXml(String nfeXml) {
-		this.nfeXml = nfeXml;
+	public void setIdEmpresa(Integer idEmpresa) {
+		this.idEmpresa = idEmpresa;
 	}
-	
-	
-	public Empresas getEmpresa() {
-		return empresa;
-	}
-	
-	public void setEmpresa(Empresas empresa) {
-		this.empresa = empresa;
-	}
-	
-	
+
+
 	public String getNomeEmpresa() {
 		return nomeEmpresa;
 	}
 	
 	public void setNomeEmpresa(String nomeEmpresa) {
 		this.nomeEmpresa = nomeEmpresa;
+	}
+
+
+	public Integer getNumeroNota() {
+		return numeroNota;
+	}
+
+
+	public void setNumeroNota(Integer numeroNota) {
+		this.numeroNota = numeroNota;
+	}
+
+
+	public String getSerieNota() {
+		return serieNota;
+	}
+
+
+	public void setSerieNota(String serieNota) {
+		this.serieNota = serieNota;
+	}
+
+
+	public Integer getTransacaoVenda() {
+		return transacaoVenda;
+	}
+
+
+	public void setTransacaoVenda(Integer transacaoVenda) {
+		this.transacaoVenda = transacaoVenda;
+	}
+
+
+	public String getChaveNFE() {
+		return chaveNFE;
+	}  
+
+
+	public void setChaveNFE(String chaveNFE) {
+		this.chaveNFE = chaveNFE;
+	}
+
+
+	public String getXmlNFE() {
+		return xmlNFE;
+	}
+
+
+	public void setXmlNFE(String xmlNFE) {
+		this.xmlNFE = xmlNFE;
 	}
 
 	

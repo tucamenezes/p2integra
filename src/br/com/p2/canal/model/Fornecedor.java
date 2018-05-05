@@ -25,7 +25,7 @@ public class Fornecedor implements Serializable {
 	
 	
 	@Id  //indica a chave primaria
-	@GeneratedValue(strategy=GenerationType.IDENTITY) //cria um codigo autoincrement
+	//@GeneratedValue(strategy=GenerationType.IDENTITY) //cria um codigo autoincrement
 	@Column(name="id")  //define o nome da coluna 
 	private Long id;
 	
@@ -48,7 +48,6 @@ public class Fornecedor implements Serializable {
 
 	public Fornecedor(Long id, Contas conta, Integer codFornecedorExterno, String nome, Date dataCadastro,
 			String status) {
-		super();
 		this.id = id;
 		this.conta = conta;
 		this.codFornecedorExterno = codFornecedorExterno;
@@ -62,11 +61,14 @@ public class Fornecedor implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((conta == null) ? 0 : conta.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
@@ -81,6 +83,11 @@ public class Fornecedor implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Fornecedor other = (Fornecedor) obj;
+		if (conta == null) {
+			if (other.conta != null)
+				return false;
+		} else if (!conta.equals(other.conta))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
